@@ -13,19 +13,7 @@ public class EntityCode {
 	private String separator;
 	
 	@Transient
-	private String prefix; 
-	
-	public enum STATE {
-			CREATED,
-			INITIALIZED			
-	}
-	
-	@Transient
-	private STATE state = STATE.CREATED;
-	
-	public STATE getState() {
-		return state;
-	}
+	private String prefix;
 
 	@PersistenceConstructor
 	public EntityCode(String code) {
@@ -36,8 +24,7 @@ public class EntityCode {
 		if(code.isEmpty())
 			throw new IllegalArgumentException("EntityCode: cannot construct with empty code");
 		
-		this.code = code;		
-		this.state = STATE.CREATED;		
+		this.code = code;
 	}
 	
 	public EntityCode(String code, CodeFormat format) throws IllegalArgumentException {
@@ -50,14 +37,11 @@ public class EntityCode {
 		
 		this.init(format);
 		this.code = code;
-		this.state = STATE.INITIALIZED;
-		
 	}
 		
 	public EntityCode(EntityCode origin, CodeFormat format) {		
 		this.init(format);		
 		this.code = origin.code;
-		this.state = STATE.INITIALIZED;
 	}
 		
 	public String toString() {		
@@ -79,10 +63,6 @@ public class EntityCode {
 	 * 			validate(...) method 
 	 */
 	public String getTail() {
-		if(this.state == STATE.CREATED) 
-			throw new IllegalStateException(
-				"EntityCode: getTail() called on state CREATED instead of INITIALIZED. Recommend calling init(CodeConfig config) first");
-
 		String tail;
 		int i = this.code.lastIndexOf(this.separator);
 		if(i < 0) {
@@ -102,10 +82,6 @@ public class EntityCode {
 	
 	public int getTailValue(String prefix) {
 		
-		if(this.state == STATE.CREATED) 
-			throw new IllegalStateException(
-				"EntityCode: getTailValue() called on state CREATED instead of INITIALIZED. Recommend calling init(CodeConfig config) first");
-
 		String tail = this.getTail();
 		if(tail.isEmpty()) {
 			tail = this.code.substring(this.code.indexOf(prefix) + 1);
@@ -123,11 +99,7 @@ public class EntityCode {
 	 * 			being the case when called before init(CodeConfig config)
 	 * 			has been called.
 	 */
-	public EntityCode getParent() throws IllegalStateException {
-
-		if(this.state == STATE.CREATED) 
-			throw new IllegalStateException(
-				"EntityCode: getParent() called on state CREATED instead of INITIALIZED. Recommend calling init(CodeConfig config) first");
+	public EntityCode getParent() {
 
 		int index = this.code.lastIndexOf(this.separator);
 		
@@ -191,15 +163,9 @@ public class EntityCode {
 	public void init(CodeFormat config) {
 		this.separator = config.getSeparator();
 		this.prefix = config.getPrefix();
-		this.state = STATE.INITIALIZED;
 	}
 	
 	public boolean isRoot() {
-		
-		if(this.state == STATE.CREATED) 
-			throw new IllegalStateException(
-				"EntityCode: isRoot() called on state CREATED instead of INITIALIZED. Recommend calling init(CodeConfig config) first");
-
 		return (this.code.indexOf(this.separator) < 0 ) ? true: false;
 	}
 	

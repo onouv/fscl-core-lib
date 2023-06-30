@@ -1,11 +1,9 @@
 package fscl.core.domain;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Iterator;
+import java.util.*;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import fscl.core.api.EntityApiId;
@@ -15,18 +13,20 @@ import static org.springframework.data.util.CastUtils.cast;
 
 public abstract class Entity<T extends Entity<T>> 
 	extends EntityContent {
-	
+
 	@Id
-	protected EntityId code;	// must not use "id" since the repository function
-								// cannot be called FindById(..), as that
-								// collides with an existing name
+	protected EntityId code;	// must not use "id" since the repository function cannot be called FindById(..), as that
+														// collides with an existing name
 	
 	@DBRef
 	protected T parent;
 	
 	@DBRef
 	protected List<T> children;
-	
+
+	@Transient
+	private EntityState state = EntityState.PENDING;
+
 	public Entity(Entity<T> e, CodeFormat cfg) {
 		this.code = e.code;	
 		this.parent = e.parent;
@@ -57,6 +57,10 @@ public abstract class Entity<T extends Entity<T>>
 	public void setCode(EntityId id) {
 		this.code = id;
 	}
+
+	public EntityState getState() {
+		return state;
+	}
 	
 	public T getParent() {
 		return this.parent;
@@ -80,7 +84,7 @@ public abstract class Entity<T extends Entity<T>>
 	 * of changed state as it doesn't evaluate children or parent but only 
 	 * the code field.
 	 * 
-	 * @param child
+	 * @param code code of child entity
 	 */
 	public boolean removeChild(EntityId code) {		
 		
@@ -127,13 +131,15 @@ public abstract class Entity<T extends Entity<T>>
 	public EntityCode getEntityCode() {
 		return this.code.entity;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		
 		StringBuilder str = new StringBuilder();
-		str.append("{code={").append(code.toString()).append("}");
+		str
+				.append("{ code={ ")
+				.append(code.toString()).append(" }, ")
+				.append(", state={ ").append(state).append(" },");
 		if(parent != null)
 			str.append(" parent={").append(parent.getCode().toString()).append("}");
 		else 
@@ -155,9 +161,10 @@ public abstract class Entity<T extends Entity<T>>
 		
 		return(
 			super.equals(o) &&
-			(this.parent == null ? e.parent == null : this.parent.equals(e.parent)) &&
-			(this.children == null ? e.children == null : this.children.equals(e.children)) &&			
-			(this.code == null ? e.code == null : this.code.equals(e.code))
+			(Objects.equals(this.parent, e.parent)) &&
+			(Objects.equals(this.children, e.children)) &&
+			(Objects.equals(this.code, e.code)) &&
+			(this.state == e.state)
 		);		
 	}
 
@@ -168,8 +175,7 @@ public abstract class Entity<T extends Entity<T>>
 	 * @throws IllegalStateException if parent is not initialized
 	 */
 	public boolean isValidChildCode(EntityId childCode) throws IllegalStateException {
-				
-		//##DUMMY
+		// TODO: elaborate on code validity
 		return true;
 	}
 	

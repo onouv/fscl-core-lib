@@ -1,21 +1,21 @@
 package fscl.core.domain;
 
+import lombok.*;
+
+import javax.persistence.Embeddable;
+
+@Embeddable
+@NoArgsConstructor(force = true)
+@RequiredArgsConstructor
+@ToString
+@Getter
 public class CodeFormat {
+
+	public static final String DEFAULT_FUNCTION_PREFIX = "=";
+	public static final String DEFAULT_LOCATION_PREFIX = "+";
+	public static final String DEFAULT_COMPONENT_PREFIX = "-";
+	public static final String DEFAULT_SEPARATOR = ".";
 	
-	private final String prefix;
-	private final String separator;
-	
-	public CodeFormat(String prefix, String separator) {
-		super();
-		this.prefix = prefix;
-		this.separator = separator;
-	}
-	
-	public String getPrefix() {
-		return prefix;
-	}
-	public String getSeparator() {
-		return separator;
-	}
-	
+	@NonNull private String prefix;
+	@NonNull private String separator;
 }
