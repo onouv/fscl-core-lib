@@ -6,7 +6,6 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 @NoArgsConstructor(force = true)
-@RequiredArgsConstructor
 @ToString
 @Getter
 @EqualsAndHashCode
@@ -14,13 +13,16 @@ public class ProjectCode {
 	
 	@NonNull private String code;
 
-	public boolean isEmpty() {
-		return this.code.isEmpty();
+	public ProjectCode(String code) throws IllegalArgumentException {
+		if(code.isEmpty()) {
+			// TODO: elaborate on code validity
+			throw new IllegalArgumentException(String.format("code must not be empty: %1$s", code));
+		}
 	}
-	
-	// TODO: elaborate code validity
+
 	public boolean isValid() {
-		return (!this.isEmpty());
+		// TODO: elaborate on code validity
+		return (!this.code.isEmpty());
 	}
 		
 }
