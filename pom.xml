@@ -5,52 +5,82 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.0.RELEASE</version>
+		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>io.fscl</groupId>
+	<groupId>org.ono.fscl.core</groupId>
 	<artifactId>fscl-core-lib</artifactId>
-	<version>1.0.0</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<name>fscl-core-lib</name>
-	<description>Library with cross-service reusable classes for FSCL system.</description>
-
+	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
+		<spring-cloud.version>2023.0.0</spring-cloud.version>
 	</properties>
 
-	<dependencies>
+	<distributionManagement>
+		<repository>
+			<id>reposilite-repository</id>
+			<name>Reposilite Local</name>
+			<url>http://localhost:4040/snapshots</url>
+		</repository>
+	</distributionManagement>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
-
+		<!-- https://mvnrepository.com/artifact/javax.measure/unit-api -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<groupId>javax.measure</groupId>
+			<artifactId>unit-api</artifactId>
+			<version>2.2</version>
 		</dependency>
-
 		<dependency>
-  			<groupId>de.bechte.junit</groupId>
-		  	<artifactId>junit-hierarchicalcontextrunner</artifactId>
-			<version>4.12.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.fscl</groupId>
-  			<artifactId>fscl-messaging-lib</artifactId>
-  			<version>1.0.0</version>
-		</dependency>
-
+            <groupId>tec.units</groupId>
+            <artifactId>unit-ri</artifactId>
+            <version>1.0.3</version>
+        </dependency>
 	</dependencies>
-
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.12.1</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>

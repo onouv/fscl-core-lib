@@ -1,0 +1,6 @@
+
+baseapi:
+    host: localhost
+    port: 4000
+    domain:fscl.1.0.0/
+ 
