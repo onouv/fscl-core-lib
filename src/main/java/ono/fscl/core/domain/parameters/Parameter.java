@@ -15,15 +15,15 @@ public class Parameter<Q extends Quantity> {
     private final String name;
     private final Quantity<?> value;
 
-    public static Parameter<Quantity<Length>>  lengthParameter(String name, Length value) {
+    public static Parameter<Quantity<Length>> of(String name, Length value) {
         return new Parameter(name, value);
     }
 
-    public static Parameter<Quantity<Volume>>  lengthParameter(String name, Volume value) {
+    public static Parameter<Quantity<Volume>>  of(String name, Volume value) {
         return new Parameter(name, value);
     }
 
-    public static Parameter<Quantity<Mass>>  lengthParameter(String name, Mass value) {
+    public static Parameter<Quantity<Mass>>  of(String name, Mass value) {
         return new Parameter(name, value);
     }
 
