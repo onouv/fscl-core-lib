@@ -17,7 +17,7 @@ public class Parameter {
 
     public final String name;
     public final QuantityType type;
-    private final Quantity<?> quantity;
+    public final Quantity<?> quantity;
 
     public Parameter(String name, QuantityType type, Quantity<?> quantity) {
         this.name = name;
@@ -25,7 +25,7 @@ public class Parameter {
         this.quantity = quantity;
     }
 
-    public static Parameter of(String name, Quantity<Length> q) {
+    public static Parameter ofLength(String name, Quantity<Length> q) {
         return new Parameter(name, QuantityType.Length, q);
     }
 
@@ -41,6 +41,8 @@ public class Parameter {
 
         throw new QuantityTypeException("Not a Length quantity type");
     }
+
+
 
     Quantity<Volume> toVolume() throws QuantityTypeException {
         if(this.type == QuantityType.Volume) {

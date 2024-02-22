@@ -11,6 +11,8 @@ import ono.fscl.core.domain.entity.id.EntityCode;
 import ono.fscl.core.domain.entity.id.EntityId;
 import ono.fscl.core.domain.parameter.Parameter;
 
+import javax.measure.Quantity;
+
 @Getter
 @EqualsAndHashCode(callSuper = true)
 public abstract class Entity<
@@ -32,6 +34,7 @@ public abstract class Entity<
         this.identifier = id;
         this.parent = parent;
         this.children = new ArrayList<T>();
+        this.parameters = new ArrayList<Parameter>();
     }
 
     public abstract EntityId<C> getIdentifier();
@@ -46,8 +49,15 @@ public abstract class Entity<
             }
         }
 
-        return p;
+        return null;
     }
-    
+
+    public void addParameter(String name, Parameter.QuantityType type, Quantity<?> quantity) {
+        this.parameters.add(new Parameter(name, type, quantity));
+    }
+
+    public void addParameter(Parameter parameter) {
+        this.parameters.add(parameter);
+    }
 }
 
