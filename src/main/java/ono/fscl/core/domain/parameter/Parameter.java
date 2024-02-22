@@ -5,6 +5,8 @@ import javax.measure.quantity.Length;
 import javax.measure.quantity.Volume;
 
 
+// TODO: use ddd marker interface Value Object
+
 public class Parameter {
 
     public enum QuantityType {
@@ -52,31 +54,3 @@ public class Parameter {
         throw new QuantityTypeException("Not a Volume quantity type");
     }
 } 
-
-
-/*
-
-// TODO: use ddd marker interface Value Object
-
-public final class Parameter {
-    
-    public final Quantity<Q extends Quantity> value;
-
-    public static Parameter  of(String name, Length value) {
-        return new Parameter(name, value);
-    }
-
-    public static Parameter<Quantity<Volume>>  of(String name, Volume value) {
-        return new Parameter<Quantity<Volume>>(name, value);
-    }
-
-    public static Parameter<Quantity<Mass>>  of(String name, Mass value) {
-        return new Parameter<Quantity<Mass>>(name, value);
-    }
-
-    public Parameter(String name, Quantity<?> value) {
-        this.name = name;
-        this.value = value;
-    }
-}
-*/
