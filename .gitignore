@@ -35,4 +35,4 @@ build/
 mvn-settings.xml
 
 ### Obsidian ###
-.obsidian/plugins/
+doc/fscl-core-lib/.obsidian/plugins/
