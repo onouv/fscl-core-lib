@@ -1,4 +1,4 @@
-package ono.fscl.core.shadow.domain.function;
+package ono.fscl.shadow.domain.function;
 
 import ono.fscl.core.domain.entity.id.EntityId;
 import ono.fscl.core.domain.function.FunctionBase;

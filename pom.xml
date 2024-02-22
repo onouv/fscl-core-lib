@@ -51,17 +51,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.measure/unit-api -->
 		<dependency>
-			<groupId>javax.measure</groupId>
-			<artifactId>unit-api</artifactId>
+			<groupId>tech.units</groupId>
+			<artifactId>indriya</artifactId>
 			<version>2.2</version>
 		</dependency>
-		<dependency>
-            <groupId>tec.units</groupId>
-            <artifactId>unit-ri</artifactId>
-            <version>1.0.3</version>
-        </dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

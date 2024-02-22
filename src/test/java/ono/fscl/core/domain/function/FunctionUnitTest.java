@@ -1,14 +1,9 @@
-package ono.fscl.shadow.domain.function;
+package ono.fscl.core.domain.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import javax.measure.Quantity;
-import javax.measure.quantity.ElectricCurrent;
-import tec.units.ri.quantity.Quantities;
-import static tec.units.ri.unit.Units.AMPERE;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,9 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import ono.fscl.core.domain.entity.id.EntityId;
 import ono.fscl.core.domain.entity.id.SegmentFormatException;
-import ono.fscl.core.domain.function.FunctionBase;
-import ono.fscl.core.domain.function.FunctionCode;
-import ono.fscl.core.domain.parameters.Parameter;
 
 class FunctionUnitTest {
 
@@ -101,38 +93,50 @@ class FunctionUnitTest {
             }
         }
 
+        /*
         @Nested
         @DisplayName("GIVEN a Voltage Parameter")
-        class GivenElectricCurrentParam {
-            private final Quantity<ElectricCurrent> current = Quantities.getQuantity(120, AMPERE);
-            private String PARAM_NAME = "Dickstrom";
+        class GivenLengthParam {
+            private Quantity<Length> len = null;
+            private final String PARAM_NAME = "Beam Length";
 
-            private final Parameter<ElectricCurrent> dickStrom = new Parameter<ElectricCurrent>(PARAM_NAME, current);
+            private final Parameter beamLength = Parameter.of(PARAM_NAME, len);
+
             @Nested
             @DisplayName("GIVEN TestFunction")
-            class WhenCreated {
+            class GivenTestFunction {
 
                 private TestFunction func = null;
                 
-
                 @Nested
                 @DisplayName("WHEN Parameter added")
                 class WhenParamAdded {
                     @BeforeEach
                     void setup() {
+                        len = Quantities.getQuantity(0.120, METRE);
                         func = new TestFunction(new EntityId<FunctionCode>(code, project));
-                        func.getParameters().add(dickStrom);
+                        func.getParameters().add(beamLength);
                     }
 
                     @Test
                     @DisplayName("THEN should yield parameter of such name and value")
-                    
+                    void shouldYieldParameterOfNameAndValue() {
+                        Parameter p = func.getParameter(PARAM_NAME);
+                        assertNotNull(p);
+                        assertEquals(PARAM_NAME, p.name);
+                        assertEquals(0.120, p.quantity.getValue());
+                        assertEquals(METRE, p.quantity.getUnit());
+                        assertEquals(Parameter.QuantityType.Length, p.type);
+                  }
 
                 } 
+                
             }
         }
 
+         */
     }
+
 
     @Nested
     @DisplayName("GIVEN Identity Name Description and a Parent")

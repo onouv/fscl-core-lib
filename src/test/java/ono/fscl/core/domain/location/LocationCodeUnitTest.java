@@ -1,4 +1,4 @@
-package ono.fscl.shadow.domain.location;
+package ono.fscl.core.domain.location;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

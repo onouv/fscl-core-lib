@@ -1,5 +1,7 @@
-/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/shadow/domain/component/ComponentCodeUnitTest.java
-/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/shadow/domain/function/FunctionCodeUnitTest.java
-/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/shadow/domain/function/FunctionUnitTest.java
-/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/shadow/domain/location/LocationCodeUnitTest.java
-/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/shadow/domain/system/SystemCodeUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/component/ComponentCodeUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/entity/EntityUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/function/FunctionCodeUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/function/FunctionUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/location/LocationCodeUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/parameter/ParameterUnitTest.java
+/home/ono/data/pprj/fscl/fscl-core-lib/src/test/java/ono/fscl/core/domain/system/SystemCodeUnitTest.java
