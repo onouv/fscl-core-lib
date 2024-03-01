@@ -1,16 +1,16 @@
 package ono.fscl.core.domain.component;
 
-import ono.fscl.core.domain.entity.id.EntityCode;
+import ono.fscl.core.domain.entity.id.FsclEntityCode;
 import ono.fscl.core.domain.entity.id.SegmentFormatException;
 
 import java.util.List;
 import java.util.regex.PatternSyntaxException;
 
-public final class ComponentCode extends EntityCode {
+public final class ComponentCode extends FsclEntityCode {
     public static final String PREFIX = "-";
     public static final String SEPARATOR = ".";
 
-    public static class Builder extends EntityCode.Builder<ComponentCode>{
+    public static class Builder extends FsclEntityCode.Builder<ComponentCode>{
         @Override
         public ComponentCode build() throws SegmentFormatException {
             String prefix = this.isShadow ? "(" + PREFIX : PREFIX;

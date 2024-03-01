@@ -5,7 +5,7 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 @AllArgsConstructor
-public class EntityId<C extends EntityCode> {
+public class FsclEntityId<C extends FsclEntityCode> {
     public final C code;
     public final String project;
 }

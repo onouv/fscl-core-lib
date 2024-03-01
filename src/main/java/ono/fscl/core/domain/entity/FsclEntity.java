@@ -4,36 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
-import ono.fscl.core.domain.entity.id.EntityCode;
-import ono.fscl.core.domain.entity.id.EntityId;
+import ono.fscl.core.domain.entity.id.FsclEntityCode;
+import ono.fscl.core.domain.entity.id.FsclEntityId;
 import ono.fscl.core.domain.parameter.Parameter;
-import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.spring.stereotype.Aggregate;
 
 import javax.measure.Quantity;
 
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-@Aggregate
-public abstract class Entity<
-    C extends EntityCode,
-    T extends Entity<C, T>>
+
+public abstract class FsclEntity<
+    C extends FsclEntityCode,
+    T extends FsclEntity<C, T>>
     
     extends EntityContent {    
     
     @NonNull
-    @AggregateIdentifier
-    protected EntityId<C> identifier;
+    @Getter(AccessLevel.NONE)
+    protected FsclEntityId<C> identifier;
     protected List<T> children;
     protected T parent;
     protected List<Parameter> parameters;
 
     
-    public Entity(EntityId<C> id, T parent, String name, String description) {
+    public FsclEntity(FsclEntityId<C> id, T parent, String name, String description) {
         super(name, description);
         
         this.identifier = id;

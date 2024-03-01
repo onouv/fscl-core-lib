@@ -8,11 +8,10 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import lombok.EqualsAndHashCode;
-import ono.fscl.core.domain.function.FunctionCode;
 
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public abstract class EntityCode {
+public abstract class FsclEntityCode {
     public final String prefix;
     public final String postfix;
     public final String segmentSeparator;
@@ -24,7 +23,7 @@ public abstract class EntityCode {
     @EqualsAndHashCode.Include
     protected List<String> segments = new ArrayList<String>();
 
-    public EntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator, String groupRegEx)
+    public FsclEntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator, String groupRegEx)
         throws SegmentFormatException, PatternSyntaxException  {
         this.prefix = prefix;
         this.postfix = postfix;
@@ -34,7 +33,7 @@ public abstract class EntityCode {
 
     }
 
-    public EntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator) throws SegmentFormatException, PatternSyntaxException {
+    public FsclEntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator) throws SegmentFormatException, PatternSyntaxException {
         this.prefix = prefix;
         this.postfix = postfix;
         this.segmentSeparator = segmentSeparator;
@@ -42,7 +41,7 @@ public abstract class EntityCode {
         this.addSegments(segments);
     }
 
-    public static abstract class Builder<T extends EntityCode> {
+    public static abstract class Builder<T extends FsclEntityCode> {
         protected boolean isShadow = false;
         protected final List<String> segms;
         public Builder() {

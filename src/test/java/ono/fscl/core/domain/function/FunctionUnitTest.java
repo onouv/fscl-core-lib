@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import ono.fscl.core.domain.entity.id.EntityId;
+import ono.fscl.core.domain.entity.id.FsclEntityId;
 import ono.fscl.core.domain.entity.id.SegmentFormatException;
 import tech.units.indriya.quantity.Quantities;
 import static tech.units.indriya.unit.Units.METRE;
@@ -20,14 +20,19 @@ class FunctionUnitTest {
 
     class TestFunction extends FunctionBase {
         public TestFunction(
-            EntityId<FunctionCode> id, 
+            FsclEntityId<FunctionCode> id,
             FunctionBase parent, 
             String name, 
             String description) {
             super(id, parent, name, description);
         }
 
-        public TestFunction(EntityId<FunctionCode> id) {
+        @Override
+        public FsclEntityId<FunctionCode> getIdentifier() {
+            return this.identifier;
+        }
+
+        public TestFunction(FsclEntityId<FunctionCode> id) {
             super(id, null, "", "");
         }
     }
@@ -62,7 +67,7 @@ class FunctionUnitTest {
             
             @BeforeEach
             void setup() {
-                func = new TestFunction(new EntityId<FunctionCode>(code, project));
+                func = new TestFunction(new FsclEntityId<FunctionCode>(code, project));
             }
 
             @Test
@@ -74,7 +79,7 @@ class FunctionUnitTest {
             @Test
             @DisplayName("THEN it should have the given identifier")
             void shouldHaveIdentifier() {
-                EntityId<FunctionCode> id = func.getIdentifier();
+                FsclEntityId<FunctionCode> id = func.getIdentifier();
                 assertEquals(EXPECTED_CODE, id.code.toString());
                 assertEquals(project, id.project);
             }
@@ -114,7 +119,7 @@ class FunctionUnitTest {
 
                 @BeforeEach
                 void setup() {
-                    testFunction = new TestFunction(new EntityId<FunctionCode>(code, project));
+                    testFunction = new TestFunction(new FsclEntityId<FunctionCode>(code, project));
                     Parameter suctionHeader = Parameter.ofLength(SUCTION, Quantities.getQuantity(3.34, METRE));
                     testFunction.addParameter(suctionHeader);
                     testFunction.addParameter(
@@ -215,7 +220,7 @@ class FunctionUnitTest {
                 code = FunctionCode.builder()
                         .withSegment("AAA")
                         .build();
-                parent = new TestFunction(new EntityId<FunctionCode>(parentCode, project));
+                parent = new TestFunction(new FsclEntityId<FunctionCode>(parentCode, project));
 
             } catch (SegmentFormatException e) {
                 fail("Failed in setup with code formatting exception: " + e.getMessage());
@@ -232,7 +237,7 @@ class FunctionUnitTest {
             @BeforeEach
             void setup() {
                 func = new TestFunction(
-                    new EntityId<FunctionCode>(parentCode, project),
+                    new FsclEntityId<FunctionCode>(parentCode, project),
                     parent,
                     NAME,
                     DESCRIPTION);

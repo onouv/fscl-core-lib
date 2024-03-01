@@ -1,16 +1,14 @@
 package ono.fscl.core.domain.function;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.PatternSyntaxException;
 
-import ono.fscl.core.domain.entity.id.EntityCode;
+import ono.fscl.core.domain.entity.id.FsclEntityCode;
 import ono.fscl.core.domain.entity.id.SegmentFormatException;
 
-public final class FunctionCode extends EntityCode {
+public final class FunctionCode extends FsclEntityCode {
 
-    public static class Builder extends EntityCode.Builder<FunctionCode>{
+    public static class Builder extends FsclEntityCode.Builder<FunctionCode>{
         @Override
         public FunctionCode build() throws SegmentFormatException {
             String prefix = this.isShadow ? "(" + PREFIX : PREFIX;
