@@ -52,8 +52,8 @@ public class ShadowFunction extends FunctionBase {
         EntityId<FunctionCode> id,
         String name,
         ShadowFunction parent,
-        String desciption) {
-            super( id, parent, name, desciption);
+        String description) {
+            super( id, parent, name, description);
     }
 
 }

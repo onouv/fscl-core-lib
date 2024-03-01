@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class EntityCode {
     public final String prefix;
+    public final String postfix;
     public final String segmentSeparator;
     
     private final Pattern segmentPattern;
@@ -22,26 +23,38 @@ public abstract class EntityCode {
     @EqualsAndHashCode.Include
     protected List<String> segments = new ArrayList<String>();
 
-    public EntityCode(String prefix, String groupSeparator, String groupRegEx) throws PatternSyntaxException {
+    public EntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator, String groupRegEx)
+        throws SegmentFormatException, PatternSyntaxException  {
         this.prefix = prefix;
-        this.segmentSeparator = groupSeparator;
+        this.postfix = postfix;
+        this.segmentSeparator = segmentSeparator;
         this.segmentPattern = Pattern.compile(groupRegEx);
+        this.addSegments(segments);
+
     }
 
-    public EntityCode(String prefix, String groupSeparator) throws PatternSyntaxException {
+    public EntityCode(String prefix, String postfix, List<String> segments, String groupSeparator) throws SegmentFormatException, PatternSyntaxException {
         this.prefix = prefix;
+        this.postfix = postfix;
         this.segmentSeparator = groupSeparator;
         this.segmentPattern = Pattern.compile(REGEXP);
+        this.addSegments(segments);
     }
 
-    public void addSegment(String group) throws SegmentFormatException {
-        Matcher matcher = this.segmentPattern.matcher(group);
-        if (matcher.matches()) {
-            this.segments.add(group);
-            return;
-        }
+    private void addSegments(List<String> segments) throws SegmentFormatException {
+        Iterator<String> iter = segments.iterator();
 
-        throw new SegmentFormatException(group);
+        while (iter.hasNext()) {
+            String s = iter.next();
+            Matcher matcher = this.segmentPattern.matcher(s);
+            if (matcher.matches()) {
+                this.segments.add(s);
+                return;
+            }
+            else {
+                throw new SegmentFormatException(s);
+            }
+        }
     }
     
     public String toString() {
@@ -57,6 +70,11 @@ public abstract class EntityCode {
             b.append(this.segmentSeparator);
             b.append(iter.next());
         }
+
+        if(this.postfix != null) {
+            b.append(this.postfix);
+        }
+
         return b.toString();
     }
 }

@@ -11,8 +11,5 @@ public abstract class FunctionBase extends Entity<FunctionCode, FunctionBase> {
         super(id, parent, name, description);
     }
 
-    @Override
-    public EntityId<FunctionCode> getIdentifier() {
-        return this.identifier;
-    }
+    public abstract EntityId<FunctionCode> getIdentifier();
 }

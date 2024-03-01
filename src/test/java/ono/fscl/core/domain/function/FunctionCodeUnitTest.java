@@ -19,8 +19,8 @@ class FunctionCodeUnitTest {
     @Test
     void shouldCreate() {
         try {
-            FunctionCode code = new FunctionCode();
-        } catch (PatternSyntaxException e) {
+            FunctionCode code = FunctionCode.builder().build();
+        } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
     }
@@ -29,36 +29,33 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddSingleGroupOfOneDigits() {
         
-        String group = "1";
+        String seg = "1";
         String expected = "=1";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
-
     }
     
     @Test
     void shouldAddMultipleGroupsOfOneDigits() {
         
-        String group = "1";
+        String seg = "1";
         String expected = "=1.1.1.1";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -68,15 +65,14 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddSingleGroupOfFourDigits() {
         
-        String group = "1234";
+        String seg = "1234";
         String expected = "=1234";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -86,17 +82,16 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddMultipleGroupOfFourDigits() {
         
-        String group = "1234";
+        String seg = "1234";
         String expected = "=1234.1234.1234";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -106,15 +101,16 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddSingleGroupOfFourUpperCases() {
         
-        String group = "ABCD";
+        String seg = "ABCD";
         String expected = "=ABCD";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -124,17 +120,16 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddMultipleGroupOfFourUpperCases() {
         
-        String group = "ABCD";
+        String seg = "ABCD";
         String expected = "=ABCD.ABCD.ABCD";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -144,15 +139,14 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddSingleGroupOfFourLowerCases() {
         
-        String group = "abcd";
+        String seg = "abcd";
         String expected = "=abcd";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -162,17 +156,16 @@ class FunctionCodeUnitTest {
     @Test
     void shouldAddMultipleGroupOfFourLowerCases() {
         
-        String group = "abcd";
+        String seg = "abcd";
         String expected = "=abcd.abcd.abcd";
 
-        FunctionCode code = new FunctionCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .withSegment(seg)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -182,13 +175,12 @@ class FunctionCodeUnitTest {
     @Test
     void shouldCatchGroupsOfFiveLowerCases() {
         
-        String group = "abcde";
-        
-
-        FunctionCode code = new FunctionCode();
+        String seg = "abcde";
 
         try {
-            code.addSegment(group);
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(seg)
+                    .build();
 
             fail("Did not catch group of more than 4 lower cases.");
 
@@ -202,12 +194,12 @@ class FunctionCodeUnitTest {
     void shouldCatchGroupsOfFiveUpperCases() {
         
         String group = "ABCDE";
-        
 
-        FunctionCode code = new FunctionCode();
 
         try {
-            code.addSegment(group);
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(group)
+                    .build();
 
             fail("Did not catch group of more than 4 upper cases.");
 
@@ -221,31 +213,28 @@ class FunctionCodeUnitTest {
     void shouldCatchGroupsOfFiveDigits() {
         
         String group = "12345";
-        
-
-        FunctionCode code = new FunctionCode();
 
         try {
-            code.addSegment(group);
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(group)
+                    .build();
 
             fail("Did not catch group of more than 4 digits.");
 
         } catch (SegmentFormatException e) {
             assert(true);
         }
-
     }
 
     @Test
     void shouldCatchEmptyGroup() {
         
         String group = "";
-        
-
-        FunctionCode code = new FunctionCode();
 
         try {
-            code.addSegment(group);
+            FunctionCode code = FunctionCode.builder()
+                    .withSegment(group)
+                    .build();
 
             fail("Did not catch empty group.");
 
@@ -256,18 +245,20 @@ class FunctionCodeUnitTest {
 
     @Test
     void whenCreatedEqualShouldCompareEqual() {
-        FunctionCode a = new FunctionCode();
-        FunctionCode b = new FunctionCode();
-
         try {
-            a.addSegment("AA");
-            b.addSegment("AA");
-            a.addSegment("53");
-            b.addSegment("53");
-            a.addSegment("BB");
-            b.addSegment("BB");
+            FunctionCode a = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
 
-            assertTrue(a.equals(b));
+            FunctionCode b = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
+
+            assertEquals(a, b);
 
         } catch (SegmentFormatException e) {
             fail("Failed in prep for test: " + e.getMessage());
@@ -276,18 +267,20 @@ class FunctionCodeUnitTest {
 
     @Test
     void whenCreatedUnequalShouldCompareUnequal() {
-        FunctionCode a = new FunctionCode();
-        FunctionCode b = new FunctionCode();
-
         try {
-            a.addSegment("AA");
-            b.addSegment("AAA");
-            a.addSegment("53");
-            b.addSegment("53");
-            a.addSegment("BB");
-            b.addSegment("BB");
+            FunctionCode a = FunctionCode.builder()
+                    .withSegment("AAA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
 
-            assertFalse(a.equals(b));
+            FunctionCode b = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
+
+            assertEquals(a, b);
 
         } catch (SegmentFormatException e) {
             fail("Failed in prep for test: " + e.getMessage());
@@ -297,16 +290,18 @@ class FunctionCodeUnitTest {
     @Test
     @DisplayName("WHEN created equal THEN should yield same hashcode")
     void whenCreatedEqualShouldYieldSameHash() {
-        FunctionCode a = new FunctionCode();
-        FunctionCode b = new FunctionCode();
-
         try {
-            a.addSegment("AA");
-            b.addSegment("AA");
-            a.addSegment("53");
-            b.addSegment("53");
-            a.addSegment("BB");
-            b.addSegment("BB");
+            FunctionCode a = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
+
+            FunctionCode b = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
 
             assertEquals(a.hashCode(), b.hashCode());
 
@@ -316,18 +311,20 @@ class FunctionCodeUnitTest {
     }
 
     @Test
-    @DisplayName("WHEN created equal THEN should yield same hashcode")
+    @DisplayName("WHEN created unequal THEN should yield different hashcode")
     void whenCreatedUnequalShouldYieldDifferentHash() {
-        FunctionCode a = new FunctionCode();
-        FunctionCode b = new FunctionCode();
-
         try {
-            a.addSegment("AA");
-            b.addSegment("AAA");
-            a.addSegment("53");
-            b.addSegment("53");
-            a.addSegment("BB");
-            b.addSegment("BB");
+            FunctionCode a = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
+
+            FunctionCode b = FunctionCode.builder()
+                    .withSegment("AA")
+                    .withSegment("53")
+                    .withSegment("BB")
+                    .build();
 
             assertNotEquals(a.hashCode(), b.hashCode());
 

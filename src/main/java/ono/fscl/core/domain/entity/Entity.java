@@ -10,11 +10,15 @@ import lombok.NonNull;
 import ono.fscl.core.domain.entity.id.EntityCode;
 import ono.fscl.core.domain.entity.id.EntityId;
 import ono.fscl.core.domain.parameter.Parameter;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.spring.stereotype.Aggregate;
 
 import javax.measure.Quantity;
 
+
 @Getter
 @EqualsAndHashCode(callSuper = true)
+@Aggregate
 public abstract class Entity<
     C extends EntityCode,
     T extends Entity<C, T>>
@@ -22,6 +26,7 @@ public abstract class Entity<
     extends EntityContent {    
     
     @NonNull
+    @AggregateIdentifier
     protected EntityId<C> identifier;
     protected List<T> children;
     protected T parent;
@@ -37,7 +42,7 @@ public abstract class Entity<
         this.parameters = new ArrayList<Parameter>();
     }
 
-    public abstract EntityId<C> getIdentifier();
+
 
     public Parameter getParameter(String name) {
         ListIterator<Parameter> iter = this.parameters.listIterator();
