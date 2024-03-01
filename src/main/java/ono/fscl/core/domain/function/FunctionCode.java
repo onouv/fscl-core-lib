@@ -10,23 +10,8 @@ import ono.fscl.core.domain.entity.id.SegmentFormatException;
 
 public final class FunctionCode extends EntityCode {
 
-    public static class Builder {
-        private boolean isShadow = false;
-        private final List<String> segms;
-        public Builder() {
-            segms = new ArrayList<>();
-        }
-
-        public Builder withSegment(String segment) {
-            this.segms.add(segment);
-            return this;
-        }
-
-        public Builder asShadow() {
-            this.isShadow = true;
-            return this;
-        }
-
+    public static class Builder extends EntityCode.Builder<FunctionCode>{
+        @Override
         public FunctionCode build() throws SegmentFormatException {
             String prefix = this.isShadow ? "(" + PREFIX : PREFIX;
             String postfix = this.isShadow ? ")" : null;

@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import lombok.EqualsAndHashCode;
+import ono.fscl.core.domain.function.FunctionCode;
 
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -33,12 +34,31 @@ public abstract class EntityCode {
 
     }
 
-    public EntityCode(String prefix, String postfix, List<String> segments, String groupSeparator) throws SegmentFormatException, PatternSyntaxException {
+    public EntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator) throws SegmentFormatException, PatternSyntaxException {
         this.prefix = prefix;
         this.postfix = postfix;
-        this.segmentSeparator = groupSeparator;
+        this.segmentSeparator = segmentSeparator;
         this.segmentPattern = Pattern.compile(REGEXP);
         this.addSegments(segments);
+    }
+
+    public static abstract class Builder<T extends EntityCode> {
+        protected boolean isShadow = false;
+        protected final List<String> segms;
+        public Builder() {
+            segms = new ArrayList<>();
+        }
+
+        public Builder<T> withSegment(String segment) {
+            this.segms.add(segment);
+            return this;
+        }
+
+        public Builder<T> asShadow() {
+            this.isShadow = true;
+            return this;
+        }
+        public abstract T build() throws SegmentFormatException;
     }
 
     private void addSegments(List<String> segments) throws SegmentFormatException {
@@ -48,8 +68,7 @@ public abstract class EntityCode {
             String s = iter.next();
             Matcher matcher = this.segmentPattern.matcher(s);
             if (matcher.matches()) {
-                this.segments.add(s);
-                return;
+                this.segments.add(s);;
             }
             else {
                 throw new SegmentFormatException(s);

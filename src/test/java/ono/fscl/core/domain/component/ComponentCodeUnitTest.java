@@ -11,19 +11,13 @@ import ono.fscl.core.domain.entity.id.SegmentFormatException;
 class ComponentCodeUnitTest {
     private ComponentCode code;
 
-    @BeforeEach
-    void setup() {
-        code = new ComponentCode();
-    }
-
     @Test
     void shouldAddSingleDigit() {
         String group = "1";
         String expected = "-1";
 
-        ComponentCode code = new ComponentCode();
         try {
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder().withSegment(group).build();
 
             assertEquals(expected, code.toString());
 
@@ -37,9 +31,8 @@ class ComponentCodeUnitTest {
         String group = "A";
         String expected = "-A";
 
-        ComponentCode code = new ComponentCode();
         try {
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -51,9 +44,8 @@ class ComponentCodeUnitTest {
         String group = "a";
         String expected = "-a";
 
-        ComponentCode code = new ComponentCode();
         try {
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -66,12 +58,13 @@ class ComponentCodeUnitTest {
         String group = "abcd";
         String expected = "-abcd.abcd.abcd.abcd";
 
-        ComponentCode code = new ComponentCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -83,14 +76,14 @@ class ComponentCodeUnitTest {
         String group = "ABCD";
         String expected = "-ABCD.ABCD.ABCD.ABCD";
 
-        ComponentCode code = new ComponentCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -101,12 +94,11 @@ class ComponentCodeUnitTest {
     void shouldCatchEmptyGroup() {
         
         String group = "";
-        
-
-        ComponentCode code = new ComponentCode();
 
         try {
-            code.addSegment(group);
+            ComponentCode code = ComponentCode.builder()
+                    .withSegment(group)
+                    .build();
 
             fail("Did not catch empty group.");
 

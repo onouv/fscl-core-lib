@@ -12,19 +12,15 @@ import ono.fscl.core.domain.system.SystemCode;
 class SystemCodeUnitTest {
     private SystemCode code;
 
-    @BeforeEach
-    void seup() {
-        code = new SystemCode();
-    }
-
     @Test
     void shouldAddSingleDigit() {
         String group = "1";
         String expected = "#1";
 
-        SystemCode code = new SystemCode();
         try {
-            code.addSegment(group);
+            SystemCode code = SystemCode.builder()
+                    .withSegment(group)
+                    .build();
 
             assertEquals(expected, code.toString());
 
@@ -38,9 +34,10 @@ class SystemCodeUnitTest {
         String group = "A";
         String expected = "#A";
 
-        SystemCode code = new SystemCode();
         try {
-            code.addSegment(group);
+            SystemCode code = SystemCode.builder()
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -52,9 +49,11 @@ class SystemCodeUnitTest {
         String group = "a";
         String expected = "#a";
 
-        SystemCode code = new SystemCode();
+
         try {
-            code.addSegment(group);
+            SystemCode code = SystemCode.builder()
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -67,12 +66,14 @@ class SystemCodeUnitTest {
         String group = "abcd";
         String expected = "#abcd.abcd.abcd.abcd";
 
-        SystemCode code = new SystemCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
+            SystemCode code = SystemCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
+
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -84,14 +85,15 @@ class SystemCodeUnitTest {
         String group = "ABCD";
         String expected = "#ABCD.ABCD.ABCD.ABCD";
 
-        SystemCode code = new SystemCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            assertEquals(expected, code.toString());
+            SystemCode code = SystemCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
 
+            assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
@@ -100,14 +102,11 @@ class SystemCodeUnitTest {
 
     @Test
     void shouldCatchEmptyGroup() {
-        
-        String group = "";
-        
-
-        SystemCode code = new SystemCode();
 
         try {
-            code.addSegment(group);
+            SystemCode.builder()
+                    .withSegment("")
+                    .build();
 
             fail("Did not catch empty group.");
 

@@ -3,6 +3,7 @@ package ono.fscl.core.domain.location;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import ono.fscl.core.domain.component.ComponentCode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,19 +13,13 @@ class LocationCodeUnitTest {
 
     private LocationCode code;
 
-    @BeforeEach
-    void setup() {
-        code = new LocationCode();
-    }
-
     @Test
     void shouldAddSingleDigit() {
         String group = "1";
         String expected = "+1";
 
-        LocationCode code = new LocationCode();
         try {
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder().withSegment(group).build();
 
             assertEquals(expected, code.toString());
 
@@ -38,9 +33,8 @@ class LocationCodeUnitTest {
         String group = "A";
         String expected = "+A";
 
-        LocationCode code = new LocationCode();
         try {
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -52,9 +46,8 @@ class LocationCodeUnitTest {
         String group = "a";
         String expected = "+a";
 
-        LocationCode code = new LocationCode();
         try {
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -63,16 +56,17 @@ class LocationCodeUnitTest {
 
     @Test
     void shouldAddFourLowercaseGroups() {
-    
+
         String group = "abcd";
         String expected = "+abcd.abcd.abcd.abcd";
 
-        LocationCode code = new LocationCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
@@ -84,31 +78,29 @@ class LocationCodeUnitTest {
         String group = "ABCD";
         String expected = "+ABCD.ABCD.ABCD.ABCD";
 
-        LocationCode code = new LocationCode();
         try {
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder()
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .withSegment(group)
+                    .build();
             assertEquals(expected, code.toString());
-
         } catch (SegmentFormatException e) {
             fail(e.getMessage());
         }
     }
 
 
-
     @Test
     void shouldCatchEmptyGroup() {
-        
-        String group = "";
-        
 
-        LocationCode code = new LocationCode();
+        String group = "";
 
         try {
-            code.addSegment(group);
+            LocationCode code = LocationCode.builder()
+                    .withSegment(group)
+                    .build();
 
             fail("Did not catch empty group.");
 
@@ -117,5 +109,5 @@ class LocationCodeUnitTest {
         }
 
     }
-   
+
 }

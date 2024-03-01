@@ -107,8 +107,6 @@ class FunctionCodeUnitTest {
         try {
             FunctionCode code = FunctionCode.builder()
                     .withSegment(seg)
-                    .withSegment(seg)
-                    .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
         } catch (SegmentFormatException e) {
@@ -280,7 +278,7 @@ class FunctionCodeUnitTest {
                     .withSegment("BB")
                     .build();
 
-            assertEquals(a, b);
+            assertNotEquals(a, b);
 
         } catch (SegmentFormatException e) {
             fail("Failed in prep for test: " + e.getMessage());
@@ -321,7 +319,7 @@ class FunctionCodeUnitTest {
                     .build();
 
             FunctionCode b = FunctionCode.builder()
-                    .withSegment("AA")
+                    .withSegment("AAA")
                     .withSegment("53")
                     .withSegment("BB")
                     .build();

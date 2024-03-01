@@ -36,7 +36,7 @@ class FunctionUnitTest {
     @DisplayName("GIVEN function code and project name")
     class GivenIdentifier {
     
-        private FunctionCode code = new FunctionCode();
+        private FunctionCode code;;
         private String project = "Testproject";
 
         private String EXPECTED_CODE = "=AAA.BAC.023";
@@ -44,9 +44,11 @@ class FunctionUnitTest {
         @BeforeEach
         void setup() {
             try {
-                this.code.addSegment("AAA");
-                this.code.addSegment("BAC");
-                this.code.addSegment("023");
+                code = FunctionCode.builder()
+                        .withSegment("AAA")
+                        .withSegment("BAC")
+                        .withSegment("023")
+                        .build();
             } catch (SegmentFormatException e) {
                 fail("Failed in setup with code formatting exception: " + e.getMessage());
             }
@@ -198,10 +200,10 @@ class FunctionUnitTest {
     @DisplayName("GIVEN Identity Name Description and a Parent")
     class GivenEverything {
 
-        private FunctionCode code = new FunctionCode();
+        private FunctionCode code;
         private final String project = "Testproject";
 
-        private FunctionCode parentCode = new FunctionCode(); 
+        private FunctionCode parentCode;;
         private FunctionBase parent = null;
 
         private final String NAME = "Bullwurz Poseidon Knuellerkeks";
@@ -210,11 +212,9 @@ class FunctionUnitTest {
         @BeforeEach
         void setup() {
             try {
-                code.addSegment("AAA");
-                code.addSegment("BAC");
-
-                parentCode.addSegment("AAA");
-
+                code = FunctionCode.builder()
+                        .withSegment("AAA")
+                        .build();
                 parent = new TestFunction(new EntityId<FunctionCode>(parentCode, project));
 
             } catch (SegmentFormatException e) {
