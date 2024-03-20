@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import lombok.EqualsAndHashCode;
 
@@ -15,41 +14,63 @@ public abstract class FsclEntityCode {
     public final String prefix;
     public final String postfix;
     public final String segmentSeparator;
-    
-    private final Pattern segmentPattern;
 
-    protected static final String REGEXP = "\\d{1,4}|[A-Z]{1,4}|[a-z]{1,4}";
     
     @EqualsAndHashCode.Include
-    protected List<String> segments = new ArrayList<String>();
+    protected List<String> segments;
 
-    public FsclEntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator, String groupRegEx)
-        throws SegmentFormatException, PatternSyntaxException  {
+    public FsclEntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator)  {
         this.prefix = prefix;
         this.postfix = postfix;
         this.segmentSeparator = segmentSeparator;
-        this.segmentPattern = Pattern.compile(groupRegEx);
-        this.addSegments(segments);
-
-    }
-
-    public FsclEntityCode(String prefix, String postfix, List<String> segments, String segmentSeparator) throws SegmentFormatException, PatternSyntaxException {
-        this.prefix = prefix;
-        this.postfix = postfix;
-        this.segmentSeparator = segmentSeparator;
-        this.segmentPattern = Pattern.compile(REGEXP);
-        this.addSegments(segments);
+        this.segments =  new ArrayList<String>(segments);
     }
 
     public static abstract class Builder<T extends FsclEntityCode> {
         protected boolean isShadow = false;
         protected final List<String> segms;
-        public Builder() {
+
+        protected final String segmentSeparator;
+        protected static final String REGEXP = "\\d{1,4}|[A-Z]{1,4}|[a-z]{1,4}";
+
+
+        public Builder(String segmentSeparator) {
             segms = new ArrayList<>();
+            this.segmentSeparator = segmentSeparator;
+
         }
 
-        public Builder<T> withSegment(String segment) {
-            this.segms.add(segment);
+        public Builder<T> withSegment(String segment) throws SegmentMismatchException {
+            Pattern pattern = Pattern.compile(REGEXP);
+            if (pattern.matcher(segment).matches() ) {
+                this.segms.add(segment);
+                return this;
+            }
+
+            throw new SegmentMismatchException(segment);
+        }
+
+        public Builder<T> withPrefix(String prefix) throws PrefixMismatchException {
+            if( ! prefix.equals(this.prefix())) {
+                throw new PrefixMismatchException(this.prefix(), prefix);
+            }
+
+            return this;
+        }
+
+        public Builder<T> withPostfix(String postfix) throws PostfixMismatchException {
+            if( ! postfix.equals(this.postfix())) {
+                throw new PostfixMismatchException(this.postfix(), postfix);
+            }
+
+            return this;
+        }
+
+        public Builder<T> withSeparator(String separator) throws SeparatorMismatchException {
+            if( ! separator.equals(this.postfix())) {
+                throw new SeparatorMismatchException(this.segmentSeparator, separator);
+            }
+
             return this;
         }
 
@@ -57,24 +78,15 @@ public abstract class FsclEntityCode {
             this.isShadow = true;
             return this;
         }
-        public abstract T build() throws SegmentFormatException;
+        public abstract T build();
+        public abstract Builder<T> withCode(String code) throws
+                PrefixMismatchException,
+                PostfixMismatchException;
+
+        protected abstract String prefix();
+        protected abstract String postfix();
     }
 
-    private void addSegments(List<String> segments) throws SegmentFormatException {
-        Iterator<String> iter = segments.iterator();
-
-        while (iter.hasNext()) {
-            String s = iter.next();
-            Matcher matcher = this.segmentPattern.matcher(s);
-            if (matcher.matches()) {
-                this.segments.add(s);;
-            }
-            else {
-                throw new SegmentFormatException(s);
-            }
-        }
-    }
-    
     public String toString() {
         StringBuilder b = new StringBuilder(prefix);
 

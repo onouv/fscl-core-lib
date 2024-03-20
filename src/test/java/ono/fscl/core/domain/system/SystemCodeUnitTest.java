@@ -3,11 +3,9 @@ package ono.fscl.core.domain.system;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ono.fscl.core.domain.entity.id.SegmentFormatException;
-import ono.fscl.core.domain.system.SystemCode;
+import ono.fscl.core.domain.entity.id.SegmentMismatchException;
 
 class SystemCodeUnitTest {
     private SystemCode code;
@@ -24,7 +22,7 @@ class SystemCodeUnitTest {
 
             assertEquals(expected, code.toString());
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -39,7 +37,7 @@ class SystemCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -55,7 +53,7 @@ class SystemCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -75,7 +73,7 @@ class SystemCodeUnitTest {
                     .build();
 
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -94,7 +92,7 @@ class SystemCodeUnitTest {
                     .build();
 
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -110,7 +108,7 @@ class SystemCodeUnitTest {
 
             fail("Did not catch empty group.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
 

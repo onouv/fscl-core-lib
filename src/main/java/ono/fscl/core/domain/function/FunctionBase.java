@@ -1,11 +1,14 @@
 package ono.fscl.core.domain.function;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ono.fscl.core.domain.entity.FsclEntity;
 import ono.fscl.core.domain.entity.id.FsclEntityId;
 import ono.fscl.shadow.domain.function.ShadowFunction;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class FunctionBase extends FsclEntity<FunctionCode, FunctionBase> {
     
     public FunctionBase(FsclEntityId<FunctionCode> id, FunctionBase parent, String name, String description) {

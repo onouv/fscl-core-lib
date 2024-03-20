@@ -3,12 +3,10 @@ package ono.fscl.core.domain.location;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import ono.fscl.core.domain.component.ComponentCode;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ono.fscl.core.domain.entity.id.SegmentFormatException;
-import ono.fscl.core.domain.location.LocationCode;
+import ono.fscl.core.domain.entity.id.SegmentMismatchException;
+
 class LocationCodeUnitTest {
 
     private LocationCode code;
@@ -23,7 +21,7 @@ class LocationCodeUnitTest {
 
             assertEquals(expected, code.toString());
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -36,7 +34,7 @@ class LocationCodeUnitTest {
         try {
             LocationCode code = LocationCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -49,7 +47,7 @@ class LocationCodeUnitTest {
         try {
             LocationCode code = LocationCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -68,7 +66,7 @@ class LocationCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -86,7 +84,7 @@ class LocationCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -104,7 +102,7 @@ class LocationCodeUnitTest {
 
             fail("Did not catch empty group.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
 

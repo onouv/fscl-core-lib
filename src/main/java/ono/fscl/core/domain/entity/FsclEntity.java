@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 import ono.fscl.core.domain.entity.id.FsclEntityCode;
 import ono.fscl.core.domain.entity.id.FsclEntityId;
 import ono.fscl.core.domain.parameter.Parameter;
@@ -17,12 +14,12 @@ import javax.measure.Quantity;
 
 @Getter
 @EqualsAndHashCode(callSuper = true)
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class FsclEntity<
     C extends FsclEntityCode,
     T extends FsclEntity<C, T>>
     
-    extends EntityContent {    
+    extends FsclEntityContent {
     
     @NonNull
     @Getter(AccessLevel.NONE)
@@ -31,7 +28,6 @@ public abstract class FsclEntity<
     protected T parent;
     protected List<Parameter> parameters;
 
-    
     public FsclEntity(FsclEntityId<C> id, T parent, String name, String description) {
         super(name, description);
         

@@ -1,28 +1,19 @@
 package ono.fscl.core.domain.function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.regex.PatternSyntaxException;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import ono.fscl.core.domain.entity.id.SegmentFormatException;
-import ono.fscl.core.domain.function.FunctionCode;
+import ono.fscl.core.domain.entity.id.SegmentMismatchException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class FunctionCodeUnitTest {
 
     @Test
     void shouldCreate() {
-        try {
-            FunctionCode code = FunctionCode.builder().build();
-        } catch (SegmentFormatException e) {
-            fail(e.getMessage());
-        }
+
+        FunctionCode code = FunctionCode.builder().build();
+        assertNotNull(code);
     }
 
     
@@ -37,7 +28,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -56,7 +47,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -73,7 +64,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -92,7 +83,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -109,7 +100,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -128,7 +119,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -145,7 +136,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -164,7 +155,7 @@ class FunctionCodeUnitTest {
                     .withSegment(seg)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
 
@@ -176,13 +167,13 @@ class FunctionCodeUnitTest {
         String seg = "abcde";
 
         try {
-            FunctionCode code = FunctionCode.builder()
+            FunctionCode.builder()
                     .withSegment(seg)
                     .build();
 
             fail("Did not catch group of more than 4 lower cases.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
 
@@ -195,13 +186,13 @@ class FunctionCodeUnitTest {
 
 
         try {
-            FunctionCode code = FunctionCode.builder()
+            FunctionCode.builder()
                     .withSegment(group)
                     .build();
 
             fail("Did not catch group of more than 4 upper cases.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
 
@@ -213,13 +204,13 @@ class FunctionCodeUnitTest {
         String group = "12345";
 
         try {
-            FunctionCode code = FunctionCode.builder()
+            FunctionCode.builder()
                     .withSegment(group)
                     .build();
 
             fail("Did not catch group of more than 4 digits.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
     }
@@ -230,13 +221,13 @@ class FunctionCodeUnitTest {
         String group = "";
 
         try {
-            FunctionCode code = FunctionCode.builder()
+            FunctionCode.builder()
                     .withSegment(group)
                     .build();
 
             fail("Did not catch empty group.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
     }
@@ -258,7 +249,7 @@ class FunctionCodeUnitTest {
 
             assertEquals(a, b);
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail("Failed in prep for test: " + e.getMessage());
         }
     }
@@ -280,7 +271,7 @@ class FunctionCodeUnitTest {
 
             assertNotEquals(a, b);
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail("Failed in prep for test: " + e.getMessage());
         }
     }
@@ -303,7 +294,7 @@ class FunctionCodeUnitTest {
 
             assertEquals(a.hashCode(), b.hashCode());
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail("Failed in prep for test: " + e.getMessage());
         }
     }
@@ -326,7 +317,7 @@ class FunctionCodeUnitTest {
 
             assertNotEquals(a.hashCode(), b.hashCode());
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail("Failed in prep for test: " + e.getMessage());
         }
     }

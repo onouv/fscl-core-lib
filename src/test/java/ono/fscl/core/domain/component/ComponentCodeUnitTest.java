@@ -2,11 +2,10 @@ package ono.fscl.core.domain.component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
-import ono.fscl.core.domain.component.ComponentCode;
-import ono.fscl.core.domain.entity.id.SegmentFormatException;
+import ono.fscl.core.domain.entity.id.SegmentMismatchException;
 
 class ComponentCodeUnitTest {
     private ComponentCode code;
@@ -21,7 +20,7 @@ class ComponentCodeUnitTest {
 
             assertEquals(expected, code.toString());
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -34,7 +33,7 @@ class ComponentCodeUnitTest {
         try {
             ComponentCode code = ComponentCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -47,7 +46,7 @@ class ComponentCodeUnitTest {
         try {
             ComponentCode code = ComponentCode.builder().withSegment(group).build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -66,7 +65,7 @@ class ComponentCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -84,7 +83,7 @@ class ComponentCodeUnitTest {
                     .withSegment(group)
                     .build();
             assertEquals(expected, code.toString());
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             fail(e.getMessage());
         }
     }
@@ -102,7 +101,7 @@ class ComponentCodeUnitTest {
 
             fail("Did not catch empty group.");
 
-        } catch (SegmentFormatException e) {
+        } catch (SegmentMismatchException e) {
             assert(true);
         }
 

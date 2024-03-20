@@ -1,14 +1,12 @@
 package ono.fscl.core.domain.entity;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-public abstract class EntityContent {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class FsclEntityContent {
     @NonNull
     protected String name;
     

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import ono.fscl.core.domain.entity.id.FsclEntityId;
-import ono.fscl.core.domain.entity.id.SegmentFormatException;
+import ono.fscl.core.domain.entity.id.SegmentMismatchException;
 import tech.units.indriya.quantity.Quantities;
 import static tech.units.indriya.unit.Units.METRE;
 
@@ -54,7 +54,7 @@ class FunctionUnitTest {
                         .withSegment("BAC")
                         .withSegment("023")
                         .build();
-            } catch (SegmentFormatException e) {
+            } catch (SegmentMismatchException e) {
                 fail("Failed in setup with code formatting exception: " + e.getMessage());
             }
         }
@@ -222,7 +222,7 @@ class FunctionUnitTest {
                         .build();
                 parent = new TestFunction(new FsclEntityId<FunctionCode>(parentCode, project));
 
-            } catch (SegmentFormatException e) {
+            } catch (SegmentMismatchException e) {
                 fail("Failed in setup with code formatting exception: " + e.getMessage());
             }
         }
