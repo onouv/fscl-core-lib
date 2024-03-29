@@ -8,7 +8,7 @@
 		<version>3.2.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.ono.fscl.core</groupId>
+	<groupId>org.fscl</groupId>
 	<artifactId>fscl-core-lib</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>fscl-core-lib</name>
