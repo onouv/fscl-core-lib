@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.fscl.core.domain.parameter.Parameter;
 import org.fscl.core.domain.entity.id.FsclEntityId;
-import org.fscl.core.domain.entity.id.SegmentMismatchException;
 import org.junit.jupiter.api.*;
 
 import tech.units.indriya.quantity.Quantities;
@@ -17,19 +16,18 @@ class FunctionUnitTest {
 
     class TestFunction extends FunctionBase {
         public TestFunction(
-            FsclEntityId<FunctionCode> id,
+            FsclEntityId id,
             FunctionBase parent, 
             String name, 
             String description) {
             super(id, parent, name, description);
         }
 
-        @Override
-        public FsclEntityId<FunctionCode> getIdentifier() {
+        public FsclEntityId getIdentifier() {
             return this.identifier;
         }
 
-        public TestFunction(FsclEntityId<FunctionCode> id) {
+        public TestFunction(FsclEntityId id) {
             super(id, null, "", "");
         }
     }
@@ -38,24 +36,9 @@ class FunctionUnitTest {
     @DisplayName("GIVEN function code and project name")
     class GivenIdentifier {
     
-        private FunctionCode code;;
-        private String project = "Testproject";
+        private final String code = "=AAA.BAC.023";
+        private final String project = "Testproject";
 
-        private String EXPECTED_CODE = "=AAA.BAC.023";
-
-        @BeforeEach
-        void setup() {
-            try {
-                code = FunctionCode.builder()
-                        .withSegment("AAA")
-                        .withSegment("BAC")
-                        .withSegment("023")
-                        .build();
-            } catch (SegmentMismatchException e) {
-                fail("Failed in setup with code formatting exception: " + e.getMessage());
-            }
-        }
-        
 
         @Nested
         @DisplayName("WHEN Created with only Identifier")
@@ -64,7 +47,7 @@ class FunctionUnitTest {
             
             @BeforeEach
             void setup() {
-                func = new TestFunction(new FsclEntityId<FunctionCode>(code, project));
+                func = new TestFunction(new FsclEntityId(code, project));
             }
 
             @Test
@@ -76,9 +59,10 @@ class FunctionUnitTest {
             @Test
             @DisplayName("THEN it should have the given identifier")
             void shouldHaveIdentifier() {
-                FsclEntityId<FunctionCode> id = func.getIdentifier();
-                assertEquals(EXPECTED_CODE, id.code.toString());
-                assertEquals(project, id.project);
+                FsclEntityId id = func.getIdentifier();
+                String EXPECTED_CODE = "=AAA.BAC.023";
+                assertEquals(EXPECTED_CODE, id.code());
+                assertEquals(project, id.project());
             }
 
             @Test
@@ -116,7 +100,7 @@ class FunctionUnitTest {
 
                 @BeforeEach
                 void setup() {
-                    testFunction = new TestFunction(new FsclEntityId<FunctionCode>(code, project));
+                    testFunction = new TestFunction(new FsclEntityId(code, project));
                     Parameter suctionHeader = Parameter.ofLength(SUCTION, Quantities.getQuantity(3.34, METRE));
                     testFunction.addParameter(suctionHeader);
                     testFunction.addParameter(
@@ -202,10 +186,9 @@ class FunctionUnitTest {
     @DisplayName("GIVEN Identity Name Description and a Parent")
     class GivenEverything {
 
-        private FunctionCode code;
         private final String project = "Testproject";
 
-        private FunctionCode parentCode;;
+        private String parentCode;;
         private FunctionBase parent = null;
 
         private final String NAME = "Bullwurz Poseidon Knuellerkeks";
@@ -213,15 +196,7 @@ class FunctionUnitTest {
 
         @BeforeEach
         void setup() {
-            try {
-                code = FunctionCode.builder()
-                        .withSegment("AAA")
-                        .build();
-                parent = new TestFunction(new FsclEntityId<FunctionCode>(parentCode, project));
-
-            } catch (SegmentMismatchException e) {
-                fail("Failed in setup with code formatting exception: " + e.getMessage());
-            }
+            parent = new TestFunction(new FsclEntityId(parentCode, project));
         }
 
         @Nested
@@ -234,7 +209,7 @@ class FunctionUnitTest {
             @BeforeEach
             void setup() {
                 func = new TestFunction(
-                    new FsclEntityId<FunctionCode>(parentCode, project),
+                    new FsclEntityId(parentCode, project),
                     parent,
                     NAME,
                     DESCRIPTION);

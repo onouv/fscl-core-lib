@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import lombok.*;
-import org.fscl.core.domain.entity.id.FsclEntityCode;
+import lombok.experimental.SuperBuilder;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
 
@@ -15,20 +15,17 @@ import javax.measure.Quantity;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class FsclEntity<
-    C extends FsclEntityCode,
-    T extends FsclEntity<C, T>>
-    
-    extends FsclEntityContent {
+@SuperBuilder
+public abstract class FsclEntity<T extends FsclEntity<T>>  extends FsclEntityContent {
     
     @NonNull
     @Getter(AccessLevel.NONE)
-    protected FsclEntityId<C> identifier;
+    protected FsclEntityId identifier;
     protected List<T> children;
     protected T parent;
     protected List<Parameter> parameters;
 
-    public FsclEntity(FsclEntityId<C> id, T parent, String name, String description) {
+    public FsclEntity(FsclEntityId id, T parent, String name, String description) {
         super(name, description);
         
         this.identifier = id;
