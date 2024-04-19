@@ -8,22 +8,24 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
+import org.fscl.core.ports.upstream.web.lifecycle.FsclEntityState;
 
 import javax.measure.Quantity;
 
 
 @Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 public abstract class FsclEntity<T extends FsclEntity<T>>  extends FsclEntityContent {
     
     @NonNull
-    @Getter(AccessLevel.NONE)
     protected FsclEntityId identifier;
     protected List<T> children;
     protected T parent;
     protected List<Parameter> parameters;
+    protected FsclEntityState state;
 
     public FsclEntity(FsclEntityId id, T parent, String name, String description) {
         super(name, description);
@@ -33,8 +35,6 @@ public abstract class FsclEntity<T extends FsclEntity<T>>  extends FsclEntityCon
         this.children = new ArrayList<T>();
         this.parameters = new ArrayList<Parameter>();
     }
-
-
 
     public Parameter getParameter(String name) {
         ListIterator<Parameter> iter = this.parameters.listIterator();

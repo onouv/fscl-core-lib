@@ -47,6 +47,16 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-rest</artifactId>
 		</dependency>
+		<!-- <dependency>
+			<groupId>io.debezium</groupId>
+			<artifactId>debezium-quarkus-outbox</artifactId>
+			<version>2.5.4.Final</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-jackson</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-arc</artifactId>
@@ -121,7 +131,6 @@
 				<configuration>
 					<systemPropertyVariables>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-						<maven.home>${maven.home}</maven.home>
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
@@ -140,9 +149,23 @@
 					<systemPropertyVariables>
 						<native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
 						<java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-						<maven.home>${maven.home}</maven.home>
 					</systemPropertyVariables>
 				</configuration>
+			</plugin>
+			<plugin>
+				<!-- https://github.com/wildfly/jandex-maven-plugin -->
+				<groupId>org.jboss.jandex</groupId>
+				<artifactId>jandex-maven-plugin</artifactId>
+				<version>1.2.3</version>
+				<executions>
+					<execution>
+						<id>make-index</id>
+						<goals>
+							<!-- phase is 'process-classes by default' -->
+							<goal>jandex</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
         </plugins>
     </build>
