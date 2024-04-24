@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.fscl.core.domain.entity.id.FsclEntityId;
@@ -15,22 +16,44 @@ import javax.measure.Quantity;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
-public abstract class FsclEntity<T extends FsclEntity<T>>  extends FsclEntityContent {
-    
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class FsclEntity<T extends FsclEntity<T>> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false, nullable = false)
+    @Setter(AccessLevel.NONE)
+    private Long id;
+
     @NonNull
-    protected FsclEntityId identifier;
+    @Embedded
+    protected FsclEntityId entityId;
+
+    @NonNull
+    protected String name;
+
+    protected String description;
+
+    @Transient // TODO: support parent/child relations
     protected List<T> children;
+
+    @Transient // TODO: support parent/child relations
     protected T parent;
+
+    @Transient
     protected List<Parameter> parameters;
+
+    @Enumerated(EnumType.ORDINAL)
     protected FsclEntityState state;
 
     public FsclEntity(FsclEntityId id, T parent, String name, String description) {
-        super(name, description);
-        
-        this.identifier = id;
+        this.entityId = id;
+        this.name = name;
+        this.description = description;
         this.parent = parent;
         this.children = new ArrayList<T>();
         this.parameters = new ArrayList<Parameter>();

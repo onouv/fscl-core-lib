@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import org.fscl.core.domain.entity.FsclEntity;
 import org.fscl.core.domain.parameter.Parameter;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.junit.jupiter.api.*;
@@ -14,10 +15,10 @@ import static tech.units.indriya.unit.Units.METRE;
 
 class FunctionUnitTest {
 
-    class TestFunction extends FunctionBase {
+    class TestFunction extends FsclEntity<TestFunction> {
         public TestFunction(
             FsclEntityId id,
-            FunctionBase parent, 
+            TestFunction parent,
             String name, 
             String description) {
             super(id, parent, name, description);
@@ -62,7 +63,7 @@ class FunctionUnitTest {
             @Test
             @DisplayName("THEN it should have the given identifier")
             void shouldHaveIdentifier() {
-                FsclEntityId id = func.getIdentifier();
+                FsclEntityId id = func.getEntityId();
                 String EXPECTED_CODE = "=AAA.BAC.023";
                 assertEquals(EXPECTED_CODE, id.code());
                 assertEquals(project, id.project());
@@ -192,7 +193,7 @@ class FunctionUnitTest {
         private final String project = "Testproject";
 
         private String parentCode;;
-        private FunctionBase parent = null;
+        private TestFunction parent = null;
 
         private final String NAME = "Bullwurz Poseidon Knuellerkeks";
         private final String DESCRIPTION = "A great German philosopher";
