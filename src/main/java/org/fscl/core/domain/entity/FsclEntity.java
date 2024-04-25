@@ -52,9 +52,6 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     @Transient
     protected List<Parameter> parameters;
 
-    @Enumerated(EnumType.ORDINAL)
-    protected FsclEntityState state;
-
     public FsclEntity(FsclEntityId id, T parent, String name, String description) {
         this.project = id.project();
         this.code = id.code();
