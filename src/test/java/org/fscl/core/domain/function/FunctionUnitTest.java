@@ -51,7 +51,7 @@ class FunctionUnitTest {
             
             @BeforeEach
             void setup() {
-                func = new TestFunction(new FsclEntityId(code, project));
+                func = new TestFunction(new FsclEntityId(project, code));
             }
 
             @Test
