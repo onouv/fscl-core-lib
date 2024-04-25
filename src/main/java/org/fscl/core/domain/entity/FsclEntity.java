@@ -30,10 +30,15 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     private Long id;
 
     @NonNull
-    @Embedded
-    protected FsclEntityId entityId;
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    protected String project;
 
     @NonNull
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    String code;
+
     protected String name;
 
     protected String description;
@@ -51,12 +56,22 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     protected FsclEntityState state;
 
     public FsclEntity(FsclEntityId id, T parent, String name, String description) {
-        this.entityId = id;
+        this.project = id.project();
+        this.code = id.code();
         this.name = name;
         this.description = description;
         this.parent = parent;
         this.children = new ArrayList<T>();
         this.parameters = new ArrayList<Parameter>();
+    }
+
+    public FsclEntityId getEntityId() {
+        return new FsclEntityId(this.project, this.code);
+    }
+
+    public void setEntityId(FsclEntityId id) {
+        this.code = id.code();
+        this.project = id.project();
     }
 
     public Parameter getParameter(String name) {
