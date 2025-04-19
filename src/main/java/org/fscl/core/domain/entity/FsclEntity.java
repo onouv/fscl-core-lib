@@ -3,16 +3,13 @@ package org.fscl.core.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-
+import javax.measure.Quantity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
-import org.fscl.core.ports.upstream.web.lifecycle.FsclEntityState;
-
-import javax.measure.Quantity;
-
 
 @Getter
 @Setter

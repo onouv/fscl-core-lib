@@ -26,7 +26,7 @@
 			<name>Reposilite Local</name>
 			<url>http://localhost:4040/snapshots</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>	
 
 	<dependencyManagement>
 		<dependencies>
@@ -84,8 +84,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
-			<optional>true</optional>
+			<version>1.18.38</version>
 		</dependency>
 		<dependency>
 			<groupId>tech.units</groupId>
@@ -96,7 +95,12 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.8.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
