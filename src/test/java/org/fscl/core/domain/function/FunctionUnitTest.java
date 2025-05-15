@@ -23,15 +23,16 @@ class FunctionUnitTest {
             super(id, parent, name, description);
         }
 
-        /*
         public FsclEntityId getIdentifier() {
-            return this.identifier;
+            return super.getEntityId();
         }
-
-         */
 
         public TestFunction(FsclEntityId id) {
             super(id, null, "", "");
+        }
+
+        public TestFunction getParent() {
+            return this.parent;
         }
     }
 
