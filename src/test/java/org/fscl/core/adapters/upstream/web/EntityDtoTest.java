@@ -1,7 +1,7 @@
 package org.fscl.core.adapters.upstream.web;
 
 
-import org.fscl.core.adapters.upstream.web.lifecycle.EntityDto;
+import org.fscl.core.adapters.driven.web.lifecycle.EntityDto;
 import org.fscl.core.domain.entity.FsclEntity;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.junit.jupiter.api.Test;

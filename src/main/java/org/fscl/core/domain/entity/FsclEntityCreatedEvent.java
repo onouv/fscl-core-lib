@@ -5,6 +5,6 @@ import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @Getter
-public class FsclEntityCreatedEvent<T extends FsclEntity<T>> extends FsclEntityEvent<T> {
+public abstract class FsclEntityCreatedEvent<T extends FsclEntity<T>> extends FsclEntityEvent<T> {
     protected T parent;
 }
