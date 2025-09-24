@@ -16,7 +16,7 @@ import org.fscl.core.domain.parameter.Parameter;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
-@Getter
+@Data
 public abstract class FsclEntity<T extends FsclEntity<T>> {
 
     @NonNull
@@ -46,6 +46,7 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     }
 
     public FsclEntityId getEntityId() {
+    	
         return new FsclEntityId(this.project, this.code);
     }
 
@@ -74,5 +75,9 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     public void addParameter(Parameter parameter) {
         this.parameters.add(parameter);
     }
+
+	public FsclEntity<T> getParent() {
+		return this.parent;
+	}
 }
 

@@ -4,7 +4,9 @@ package org.fscl.core.adapters.upstream.web;
 import org.fscl.core.adapters.driven.web.lifecycle.EntityDto;
 import org.fscl.core.domain.entity.FsclEntity;
 import org.fscl.core.domain.entity.id.FsclEntityId;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,26 +21,41 @@ class TestFunction extends FsclEntity<TestFunction> {
         super(id, parent, name, description);
     }
 
-    public TestFunction(FsclEntityId id) {
-        super(id, null, "", "");
+    public TestFunction(FsclEntityId id, String name, String description) {
+        super(id, null, name, description);
+    }
+    
+    public String getName() {
+    	return name;
+    }
+    
+    public String getDescription() {
+    	return description;
     }
 }
 
 class EntityDtoTest {
-
-    @Test
-    void shouldCreateEntityDtoFromEntity() {
-        // Given
-        FsclEntityId mockId = mock(FsclEntityId.class);
-        @SuppressWarnings("unchecked")
-        FsclEntity<TestFunction> mockEntity = mock(FsclEntity.class);
-        
+	
+	FsclEntityId mockId;
+	TestFunction mockEntity;
+	
+	@BeforeEach
+	void setup() {
+		this.mockId = mock(FsclEntityId.class);
+        this.mockEntity = mock(TestFunction.class); //new TestFunction(mockId, "Test Entity", "Test Description");
         when(mockEntity.getEntityId()).thenReturn(mockId);
         when(mockEntity.getName()).thenReturn("Test Entity");
         when(mockEntity.getDescription()).thenReturn("Test Description");
-
+	}
+	
+    @Test
+    void shouldCreateEntityDtoFromEntity() {
+        // Given 
+    	// mock entity as per setup
+        
         // When
-        EntityDto<?> result = EntityDto.of(mockEntity);
+    	// creating dto from it
+        EntityDto<TestFunction> result = EntityDto.of(mockEntity);
 
         // Then
         assertNotNull(result);
@@ -55,7 +72,7 @@ class EntityDtoTest {
         String description = "Test Description";
 
         // When
-        EntityDto<?> dto = new EntityDto<>(mockId, name, description);
+        EntityDto<TestFunction> dto = new EntityDto<TestFunction>(mockId, name, description);
 
         // Then
         assertNotNull(dto);

@@ -44,7 +44,8 @@ public class Parameter {
 
 
 
-    Quantity<Volume> toVolume() throws QuantityTypeException {
+    @SuppressWarnings("unchecked")
+	Quantity<Volume> toVolume() throws QuantityTypeException {
         if(this.type == QuantityType.Volume) {
             try {
                 return (Quantity<Volume>) this.quantity;

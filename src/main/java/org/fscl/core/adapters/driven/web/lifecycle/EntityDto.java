@@ -11,7 +11,6 @@ public class EntityDto<T extends FsclEntity<T>> {
     private FsclEntityId id;
     private String name;
     private String description;
-    private boolean poop;
 
     public static <T extends FsclEntity<T>> EntityDto<T> of(FsclEntity<T> entity) {
         return new EntityDto<>(
