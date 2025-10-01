@@ -1,4 +1,4 @@
-package org.fscl.core.ports.upstream.web.lifecycle;
+package org.fscl.core.ports.driven.web.lifecycle;
 
 public enum FsclEntityState {
     CreatedInView,

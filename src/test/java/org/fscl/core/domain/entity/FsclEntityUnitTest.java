@@ -1,4 +1,4 @@
-package org.fscl.core.domain.function;
+package org.fscl.core.domain.entity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.*;
 import tech.units.indriya.quantity.Quantities;
 import static tech.units.indriya.unit.Units.METRE;
 
-class FunctionUnitTest {
+class FsclEntityUnitTest {
 
     class TestFunction extends FsclEntity<TestFunction> {
         public TestFunction(

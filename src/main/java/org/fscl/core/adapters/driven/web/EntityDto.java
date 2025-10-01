@@ -1,13 +1,12 @@
-package org.fscl.core.adapters.driven.web.lifecycle;
+package org.fscl.core.adapters.driven.web;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@Setter
 @Getter
-public class CreateEntityRequestDto {
+public class EntityDto {
     private FsclEntityId id;
     private String name;
     private String description;

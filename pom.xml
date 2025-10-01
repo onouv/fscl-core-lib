@@ -19,6 +19,7 @@
 		<skipITs>true</skipITs>
 		<surefire-plugin.version>3.2.5</surefire-plugin.version>
 		<lombok-version>1.18.42</lombok-version>
+		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 	</properties>
 
 	<distributionManagement>
@@ -94,6 +95,11 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+	    <dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct</artifactId>
+		    <version>${org.mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>

@@ -1,4 +1,4 @@
-package org.fscl.core.adapters.driving.persistence;
+package org.fscl.core.adapters.driving.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,17 +11,18 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class EntityJpaData {
+public abstract class EntityJpaData {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    protected String project;
     protected String code;
     protected String name;
     protected String description;
-    protected String project;
 
     // TODO: support parent/child relations
 
+    // TODO: support parameters
 }
