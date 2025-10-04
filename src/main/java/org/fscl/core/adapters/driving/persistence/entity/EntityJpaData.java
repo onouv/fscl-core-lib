@@ -15,7 +15,7 @@ public abstract class EntityJpaData {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    protected Long id;
 
     protected String project;
     protected String code;
