@@ -12,10 +12,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
-public class FsclFunction extends FsclEntity<FsclFunction> {
+public abstract class FsclFunction extends FsclEntity<FsclFunction> {
 
 	public FsclFunction(FsclEntityId id, FsclFunction parent, String name, String description) {
 		super(id, parent, name, description);
+		
+		// TODO: deal with id format validation
 	}
 
 }

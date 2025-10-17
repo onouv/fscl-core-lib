@@ -10,6 +10,8 @@ import lombok.experimental.SuperBuilder;
 import org.fscl.core.domain.entity.id.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
 
+import jakarta.persistence.Id;
+
 /**
  * Base class for all FSCL entities.
  */
@@ -19,7 +21,7 @@ import org.fscl.core.domain.parameter.Parameter;
 @Data
 public abstract class FsclEntity<T extends FsclEntity<T>> {
 
-    @NonNull
+	@NonNull
     protected String project;
 
     @NonNull
@@ -75,9 +77,5 @@ public abstract class FsclEntity<T extends FsclEntity<T>> {
     public void addParameter(Parameter parameter) {
         this.parameters.add(parameter);
     }
-
-	public FsclEntity<T> getParent() {
-		return this.parent;
-	}
 }
 

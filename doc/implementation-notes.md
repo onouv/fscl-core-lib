@@ -1,3 +1,11 @@
+# Database Inheritance 
+There is no real need apparent to represent the inheritance hierarchy in the database. This would lead to @MappedSuperclass in the core lib base classes for entity data objects. 
+
+However, since we need to bind debezium for the DomainEvent,  this causes a missing dependency in the hibernate mechanism for various debezium classes. The reason appears to be that without any @Entity annotations in core lib, the hibernate ORM purposefully avoids creating EntityManagers. 
+
+Therefore, we fall back to TABLE_PER_CLASS strategy which is supposed to be only slightly less performing on READ and WRITE, as long as you don't run queries on the super classes, which we don't intend at this point. It also allows us to use @NOTNULL in our fields. It does require more database space, which seems acceptable for a concept demonstrator.
+
+Alternatively, we could have a dummy @Entity class in the core lib.
 
 # RegExp for complete FUNCTION code
 
