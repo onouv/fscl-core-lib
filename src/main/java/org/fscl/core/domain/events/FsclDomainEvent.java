@@ -8,17 +8,17 @@ import io.debezium.outbox.quarkus.ExportedEvent;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public abstract class FsclDomainEvent implements ExportedEvent<String, JsonNode> {
+public abstract class FsclDomainEvent { //implements ExportedEvent<String, JsonNode> {
 	protected final Instant timestamp = Instant.now();
 	protected final static ObjectMapper mapper = new ObjectMapper();
 	protected final ObjectNode payload = mapper.createObjectNode();
 	
-	@Override
+	//@Override
     public Instant getTimestamp() {
         return timestamp;
     }
 
-    @Override
+    //@Override
     public JsonNode getPayload() {
         return payload;
     }

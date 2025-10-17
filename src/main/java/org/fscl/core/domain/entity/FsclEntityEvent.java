@@ -12,7 +12,7 @@ public abstract class FsclEntityEvent extends FsclDomainEvent {
     protected FsclEntityEvent(FsclEntityId id, String name, String description) {
     	super();
     	
-    	super.payload.put("project", id.project());
+    	super.payload.put("project", id.project());	
     	super.payload.put("code", id.code());       
         super.payload.put("name", name);
         super.payload.put("description", description);

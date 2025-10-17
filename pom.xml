@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.fscl</groupId>
@@ -9,17 +8,17 @@
 	<name>fscl-core-lib</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<compiler-plugin.version>3.12.1</compiler-plugin.version>
-		<maven.compiler.release>17</maven.compiler.release>
+        <debezium-quarkus-outbox-version>3.2.1.Final</debezium-quarkus-outbox-version>
+		<compiler-plugin.version>3.14.0</compiler-plugin.version>
+		<maven.compiler.release>21</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>3.9.1</quarkus.platform.version>
+		<quarkus.platform.version>3.28.2</quarkus.platform.version>
 		<skipITs>true</skipITs>
-		<surefire-plugin.version>3.2.5</surefire-plugin.version>
+		<surefire-plugin.version>3.5.4</surefire-plugin.version>
 		<lombok-version>1.18.42</lombok-version>
-		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 	</properties>
 
 	<distributionManagement>
@@ -39,29 +38,40 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+			<dependency>
+				<groupId>${quarkus.platform.group-id}</groupId>
+				<artifactId>quarkus-debezium-bom</artifactId>
+				<version>${quarkus.platform.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
 
-		<!-- Quarkus -->
+		<!-- REST API stuff -->
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-rest</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.debezium</groupId>
-			<artifactId>debezium-quarkus-outbox</artifactId>
-			<version>3.1.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-rest-jackson</artifactId>
 		</dependency>
 		<dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Quarkus core stuff -->
+		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-arc</artifactId>
 		</dependency>
+		
+		<!-- database stuff -->
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-hibernate-orm-panache</artifactId>
@@ -70,18 +80,20 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-jdbc-postgresql</artifactId>
 		</dependency>
+		
+		<!-- messaging stuff -->
 		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-junit5</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<scope>test</scope>
-		</dependency>
+            <groupId>io.debezium</groupId>
+            <artifactId>debezium-quarkus-outbox</artifactId>
+            <version>${debezium-quarkus-outbox-version}</version>
+        </dependency>
 
 		<!-- auxiliaries -->
+		<dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -96,15 +108,10 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
-	    <dependency>
-		    <groupId>org.mapstruct</groupId>
-		    <artifactId>mapstruct</artifactId>
-		    <version>${org.mapstruct.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
-			<version>5.8.0</version>
+			
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -161,6 +168,8 @@
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
+			
+			<!-- As a donating library, we need to have this -->
 			<plugin>
 				<!-- https://github.com/wildfly/jandex-maven-plugin -->
 				<groupId>org.jboss.jandex</groupId>

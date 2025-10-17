@@ -1,6 +1,11 @@
 package org.fscl.core.adapters.driving.persistence.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Column;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.SequenceGenerator;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -9,16 +14,12 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity
-@Table(name="entity")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@MappedSuperclass 
-// not possible to use this instead of @Entity, @Table and @Inheritance 						
-// since it will collide with debezium and the hibernate default persistence unit
+@MappedSuperclass 
 public abstract class EntityJpaData {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="entity_id_gen")
+    @SequenceGenerator(name = "entity_id_gen", sequenceName = "entity_seq")
+    @Column(name = "id", updatable = false)
     protected Long id;
 
     protected String project;
