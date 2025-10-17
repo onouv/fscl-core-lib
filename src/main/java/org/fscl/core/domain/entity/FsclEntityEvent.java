@@ -7,22 +7,12 @@ import lombok.EqualsAndHashCode;
 
 
 @EqualsAndHashCode(callSuper = true)
-public abstract class FsclEntityEvent extends FsclDomainEvent {
+public abstract class FsclEntityEvent<T extends FsclEntity<T>> extends FsclDomainEvent {
 	
-    protected FsclEntityEvent(FsclEntityId id, String name, String description) {
-    	super();
-    	
-    	super.payload.put("project", id.project());	
-    	super.payload.put("code", id.code());       
-        super.payload.put("name", name);
-        super.payload.put("description", description);
-    }
-    
-    public String getAggregateId() {
-        FsclEntityId id = new FsclEntityId(
-        		super.payload.get("project").toString(),
-        		super.payload.get("code").toString());
-    	
-        return id.toString();
-    }
+	protected FsclEntity<T> entity;
+	
+	protected FsclEntityEvent(String view, FsclEntity<T> entity) {
+		super(view);
+		this.entity = entity;
+	}    
 }

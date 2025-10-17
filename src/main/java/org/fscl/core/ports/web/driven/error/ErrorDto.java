@@ -1,4 +1,4 @@
-package org.fscl.core.ports.driven.web.error;
+package org.fscl.core.ports.web.driven.error;
 
 import lombok.Data;
 import com.fasterxml.jackson.annotation.JsonFormat;

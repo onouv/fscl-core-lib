@@ -1,25 +1,31 @@
 package org.fscl.core.domain.events;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.Instant;
-import io.debezium.outbox.quarkus.ExportedEvent;
+
 import lombok.EqualsAndHashCode;
 
+/**
+ * The root class for all domain events of a given domain.
+ */
 @EqualsAndHashCode
-public abstract class FsclDomainEvent { //implements ExportedEvent<String, JsonNode> {
-	protected final Instant timestamp = Instant.now();
-	protected final static ObjectMapper mapper = new ObjectMapper();
-	protected final ObjectNode payload = mapper.createObjectNode();
+public abstract class FsclDomainEvent {
 	
-	//@Override
-    public Instant getTimestamp() {
-        return timestamp;
-    }
-
-    //@Override
-    public JsonNode getPayload() {
-        return payload;
-    }
+	public String viewName;
+	
+	protected FsclDomainEvent(String viewName) {
+		this.viewName = new String(viewName);
+	}
+	
+	/*
+	 * @return the name of any derived class as the event type 
+	 */
+	public String getEventType() {
+		return this.getClass().getSimpleName();
+	}
+	
+	/*
+	 * @return the name of the view
+	 */
+	public String getViewName() {
+		return new String(this.viewName);
+	}
 }

@@ -11,21 +11,6 @@ import org.fscl.core.domain.entity.FsclEntityCreatedEvent;
 public class FunctionCreatedEvent extends FsclEntityCreatedEvent<FsclFunction> {
 
     public FunctionCreatedEvent(FsclFunction function) {
-    	super(function);
-    }
-
-    //@Override
-    public String getAggregateType() {
-        return "Function";
-    }
-
-    //@Override
-    public String getType() {
-        return "FunctionCreated";
-    }
-
-    public String toString() {
-        return "{ id: " + this.getAggregateId() + ", function: " + this.payload.toString() + "timestamp: " + this.timestamp.toString() + " }";
-    }
-
+    	super("function", function);
+    }   
 }

@@ -1,7 +1,7 @@
-package org.fscl.core.application.function;
+package org.fscl.core.application;
 
 import org.fscl.core.domain.entity.id.FsclEntityId;
-import org.fscl.core.ports.driven.web.lifecycle.FsclEntityState;
+import org.fscl.core.ports.web.driven.lifecycle.FsclEntityState;
 
 public record EntityRecord(FsclEntityId id, FsclEntityState state) {
 }
