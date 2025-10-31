@@ -1,31 +1,23 @@
 package org.fscl.core.domain.events;
 
+import org.fscl.core.commons.entity.EntityEventType;
+import org.fscl.core.commons.entity.EntityType;
 
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * The root class for all domain events of a given domain.
  */
-@EqualsAndHashCode
 public abstract class FsclDomainEvent {
-	
-	public String viewName;
-	
+
+	@Getter
+	protected String viewName;
+
 	protected FsclDomainEvent(String viewName) {
-		this.viewName = new String(viewName);
+		this.viewName = viewName;
 	}
-	
-	/*
-	 * @return the name of any derived class as the event type 
-	 */
-	public String getEventType() {
-		return this.getClass().getSimpleName();
-	}
-	
-	/*
-	 * @return the name of the view
-	 */
-	public String getViewName() {
-		return new String(this.viewName);
-	}
+
+	public abstract EntityEventType getEventType();
+
+	public abstract EntityType getEntityType();
 }

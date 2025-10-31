@@ -3,79 +3,57 @@ package org.fscl.core.domain.entity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import javax.measure.Quantity;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
-import org.fscl.core.domain.entity.id.FsclEntityId;
+import javax.measure.Quantity;
+
+import org.fscl.core.commons.entity.FsclEntityData;
+import org.fscl.core.commons.entity.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
 
-import jakarta.persistence.Id;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Base class for all FSCL entities.
  */
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode(callSuper = true)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
-@Data
-public abstract class FsclEntity<T extends FsclEntity<T>> {
+@Getter
+public abstract class FsclEntity<T extends FsclEntity<T>> extends FsclEntityData {
 
-	@NonNull
-    protected String project;
+	protected List<T> children;
 
-    @NonNull
-    protected String code;
+	protected T parent;
 
-    protected String name;
+	protected List<Parameter> parameters;
 
-    protected String description;
+	protected FsclEntity(FsclEntityId id, T parent, String name, String description) {
+		super(id, name, description);
+		this.parent = parent;
+		this.children = new ArrayList<>();
+		this.parameters = new ArrayList<>();
+	}
 
-    protected List<T> children;
+	public Parameter getParameter(String name) {
+		ListIterator<Parameter> iter = this.parameters.listIterator();
+		Parameter p = null;
+		while (iter.hasNext()) {
+			p = iter.next();
+			if (p.name.equals(name)) {
+				return p;
+			}
+		}
 
-    protected T parent;
+		return null;
+	}
 
-    protected List<Parameter> parameters;
+	public void addParameter(String name, Parameter.QuantityType type, Quantity<?> quantity) {
+		this.parameters.add(new Parameter(name, type, quantity));
+	}
 
-    public FsclEntity(FsclEntityId id, T parent, String name, String description) {
-        this.project = id.project();
-        this.code = id.code();
-        this.name = name;
-        this.description = description;
-        this.parent = parent;
-        this.children = new ArrayList<T>();
-        this.parameters = new ArrayList<Parameter>();
-    }
-
-    public FsclEntityId getEntityId() {
-    	
-        return new FsclEntityId(this.project, this.code);
-    }
-
-    public void setEntityId(FsclEntityId id) {
-        this.code = id.code();
-        this.project = id.project();
-    }
-
-    public Parameter getParameter(String name) {
-        ListIterator<Parameter> iter = this.parameters.listIterator();
-        Parameter p = null;
-        while(iter.hasNext()) {
-            p = iter.next();
-            if (p.name.equals(name)) {
-                return p;
-            }
-        }
-
-        return null;
-    }
-
-    public void addParameter(String name, Parameter.QuantityType type, Quantity<?> quantity) {
-        this.parameters.add(new Parameter(name, type, quantity));
-    }
-
-    public void addParameter(Parameter parameter) {
-        this.parameters.add(parameter);
-    }
+	public void addParameter(Parameter parameter) {
+		this.parameters.add(parameter);
+	}
 }
-
