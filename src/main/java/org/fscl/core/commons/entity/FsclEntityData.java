@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 public class FsclEntityData {
 
-	protected FsclEntityId entityId;
+	protected ResourceId entityId;
 
 	@Setter
 	String name;

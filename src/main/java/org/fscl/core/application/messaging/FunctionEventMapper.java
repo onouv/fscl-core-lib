@@ -2,7 +2,7 @@ package org.fscl.core.application.messaging;
 
 import org.fscl.core.commons.entity.EntityType;
 import org.fscl.core.commons.entity.FsclEntityData;
-import org.fscl.core.commons.entity.FsclEntityId;
+import org.fscl.core.commons.entity.ResourceId;
 import org.fscl.core.domain.entity.FsclFunction;
 import org.fscl.core.domain.events.FsclDomainEvent;
 import org.fscl.core.domain.events.FunctionCreatedEvent;
@@ -30,8 +30,11 @@ public class FunctionEventMapper {
 		switch (event.getEventType()) {
 			case Created:
 				FsclEntityData entity = ((FunctionCreatedEvent) event).getEntity();
-				return FunctionCreatedEventDto.builder().entityId(entity.getEntityId()).name(entity.getName())
-						.description(entity.getDescription()).build();
+				return FunctionCreatedEventDto.builder()
+					.entityId(entity.getEntityId())
+					.name(entity.getName())
+					.description(entity.getDescription())
+					.build();
 			case Deleted:
 				// break;
 			default:
@@ -39,12 +42,15 @@ public class FunctionEventMapper {
 		}
 	}
 
-	protected JsonNode makePayload(FsclEntityId id, FsclDomainEvent event, FsclFunction entity) {
-		ObjectNode aggregateId = this.mapper.createObjectNode().put("project", id.project()).put("code", id.code());
+	protected JsonNode makePayload(ResourceId id, FsclDomainEvent event, FsclFunction entity) {
+		ObjectNode aggregateId = this.mapper.createObjectNode()
+			.put("project", id.getProject())
+			.put("code", id.getCode());
 
 		return ((ObjectNode) this.mapper.createObjectNode().set("aggregateId", aggregateId))
-				.put("viewName", event.getViewName()).put("name", entity.getName())
-				.put("description", entity.getDescription());
+			.put("viewName", event.getViewName())
+			.put("name", entity.getName())
+			.put("description", entity.getDescription());
 
 	}
 }

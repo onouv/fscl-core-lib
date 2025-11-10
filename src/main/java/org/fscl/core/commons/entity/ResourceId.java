@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class FsclEntityId {
+public class ResourceId {
 
 	private String project;
 	private String code;

@@ -1,7 +1,7 @@
 package org.fscl.core.application;
 
 import org.fscl.core.adapters.driving.persistence.entity.EntityIdJpaDto;
-import org.fscl.core.commons.entity.FsclEntityId;
+import org.fscl.core.commons.entity.ResourceId;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 public interface EntityIdJpaMapper {
 	public static final EntityIdJpaMapper INSTANCE = Mappers.getMapper(EntityIdJpaMapper.class);
 
-	EntityIdJpaDto outwards(FsclEntityId id);
+	EntityIdJpaDto outwards(ResourceId id);
 
-	FsclEntityId inwards(EntityIdJpaDto dto);
+	ResourceId inwards(EntityIdJpaDto dto);
 }

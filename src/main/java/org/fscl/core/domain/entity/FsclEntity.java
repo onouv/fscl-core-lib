@@ -7,7 +7,7 @@ import java.util.ListIterator;
 import javax.measure.Quantity;
 
 import org.fscl.core.commons.entity.FsclEntityData;
-import org.fscl.core.commons.entity.FsclEntityId;
+import org.fscl.core.commons.entity.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
 
 import lombok.AccessLevel;
@@ -31,7 +31,7 @@ public abstract class FsclEntity<T extends FsclEntity<T>> extends FsclEntityData
 
 	protected List<Parameter> parameters;
 
-	protected FsclEntity(FsclEntityId id, T parent, String name, String description) {
+	protected FsclEntity(ResourceId id, T parent, String name, String description) {
 		super(id, name, description);
 		this.parent = parent;
 		this.children = new ArrayList<>();

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static tech.units.indriya.unit.Units.METRE;
 
-import org.fscl.core.commons.entity.FsclEntityId;
+import org.fscl.core.commons.entity.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,15 +18,15 @@ import tech.units.indriya.quantity.Quantities;
 class FsclEntityUnitTest {
 
 	class TestFunction extends FsclEntity<TestFunction> {
-		public TestFunction(FsclEntityId id, TestFunction parent, String name, String description) {
+		public TestFunction(ResourceId id, TestFunction parent, String name, String description) {
 			super(id, parent, name, description);
 		}
 
-		public FsclEntityId getIdentifier() {
+		public ResourceId getIdentifier() {
 			return super.getEntityId();
 		}
 
-		public TestFunction(FsclEntityId id) {
+		public TestFunction(ResourceId id) {
 			super(id, null, "", "");
 		}
 
@@ -50,7 +50,7 @@ class FsclEntityUnitTest {
 
 			@BeforeEach
 			void setup() {
-				func = new TestFunction(new FsclEntityId(project, code));
+				func = new TestFunction(new ResourceId(project, code));
 			}
 
 			@Test
@@ -62,10 +62,10 @@ class FsclEntityUnitTest {
 			@Test
 			@DisplayName("THEN it should have the given identifier")
 			void shouldHaveIdentifier() {
-				FsclEntityId id = func.getEntityId();
+				ResourceId id = func.getEntityId();
 				String EXPECTED_CODE = "=AAA.BAC.023";
-				assertEquals(EXPECTED_CODE, id.code());
-				assertEquals(project, id.project());
+				assertEquals(EXPECTED_CODE, id.getCode());
+				assertEquals(project, id.getProject());
 			}
 
 			@Test
@@ -102,7 +102,7 @@ class FsclEntityUnitTest {
 
 				@BeforeEach
 				void setup() {
-					testFunction = new TestFunction(new FsclEntityId(code, project));
+					testFunction = new TestFunction(new ResourceId(code, project));
 					Parameter suctionHeader = Parameter.ofLength(SUCTION, Quantities.getQuantity(3.34, METRE));
 					testFunction.addParameter(suctionHeader);
 					testFunction.addParameter(DISCHARGE, Parameter.QuantityType.Length,
@@ -195,7 +195,7 @@ class FsclEntityUnitTest {
 
 		@BeforeEach
 		void setup() {
-			parent = new TestFunction(new FsclEntityId(parentCode, project));
+			parent = new TestFunction(new ResourceId(parentCode, project));
 		}
 
 		@Nested
@@ -206,7 +206,7 @@ class FsclEntityUnitTest {
 
 			@BeforeEach
 			void setup() {
-				func = new TestFunction(new FsclEntityId(parentCode, project), parent, NAME, DESCRIPTION);
+				func = new TestFunction(new ResourceId(parentCode, project), parent, NAME, DESCRIPTION);
 			}
 
 			@Test

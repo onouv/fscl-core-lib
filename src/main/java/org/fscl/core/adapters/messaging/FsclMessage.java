@@ -2,7 +2,7 @@ package org.fscl.core.adapters.messaging;
 
 import java.time.Instant;
 
-import org.fscl.core.commons.entity.FsclEntityId;
+import org.fscl.core.commons.entity.ResourceId;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -11,10 +11,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 @Getter
-public abstract class FsclMessage implements ExportedEvent<FsclEntityId, JsonNode> {
+public abstract class FsclMessage implements ExportedEvent<ResourceId, JsonNode> {
 	
 	@Getter(AccessLevel.NONE)
-	private final FsclEntityId aggregateId;
+	private final ResourceId aggregateId;
 	
 	@Getter(AccessLevel.NONE)
     private final Instant timestamp;
@@ -22,14 +22,14 @@ public abstract class FsclMessage implements ExportedEvent<FsclEntityId, JsonNod
 	@Getter(AccessLevel.NONE)
     private final JsonNode payload;
 
-	public FsclMessage(FsclEntityId aggregateId, JsonNode payload) {
+	public FsclMessage(ResourceId aggregateId, JsonNode payload) {
 		this.aggregateId = aggregateId;     
 		this.timestamp = Instant.now();
         this.payload = payload;
 	}
 	
 	@Override
-	public FsclEntityId getAggregateId() {
+	public ResourceId getAggregateId() {
 		return this.aggregateId;
 	}
 	
