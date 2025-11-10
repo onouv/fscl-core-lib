@@ -10,15 +10,17 @@ import org.fscl.core.commons.entity.FsclEntityData;
 import org.fscl.core.commons.entity.FsclEntityId;
 import org.fscl.core.domain.parameter.Parameter;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
  * Base class for all FSCL entities.
  */
 @EqualsAndHashCode(callSuper = true)
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 @Getter
 public abstract class FsclEntity<T extends FsclEntity<T>> extends FsclEntityData {

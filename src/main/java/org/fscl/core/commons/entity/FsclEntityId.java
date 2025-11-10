@@ -1,15 +1,17 @@
 package org.fscl.core.commons.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import jakarta.persistence.Embeddable;
+@Getter
+@AllArgsConstructor
+public class FsclEntityId {
 
-@RegisterForReflection  // to serve as an identifier in db queries
-@Embeddable
-public record FsclEntityId(String project, String code){
+	private String project;
+	private String code;
 
-    @Override
-    public java.lang.String toString() {
-        return String.format("{ project=%s, code=%s }", project, code);
-    }
+	@Override
+	public java.lang.String toString() {
+		return String.format("{ project=%s, code=%s }", project, code);
+	}
 }

@@ -1,5 +1,6 @@
 package org.fscl.core.adapters.driving.persistence.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class EntityIdJpaDto {
 
+	@Column(name = "entityid_project")
 	private String project;
+
+	@Column(name = "entityid_code")
 	private String code;
 }
