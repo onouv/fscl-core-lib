@@ -1,7 +1,7 @@
 package org.fscl.core.adapters.messaging;
 
-import org.fscl.core.commons.entity.EntityEventType;
-import org.fscl.core.commons.entity.ResourceId;
+import org.fscl.core.commons.ResourceEventType;
+import org.fscl.core.commons.ResourceId;
 import org.fscl.core.ports.driving.messaging.FunctionCreatedEventDto;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,12 +15,12 @@ public class FunctionCreatedMessage extends FunctionMessage {
 
 	@Override
 	public String getType() {
-		return EntityEventType.Created.toString();
+		return ResourceEventType.Created.toString();
 	}
 
 	public static FunctionCreatedMessage of(FunctionCreatedEventDto dto) {
 
-		final ResourceId id = dto.getEntityId();
+		final ResourceId id = dto.getResourceId();
 		final ObjectNode idNode = mapper.createObjectNode().put("project", id.getProject()).put("code", id.getCode());
 
 		final ObjectNode payload = mapper.createObjectNode().set("resourceId", idNode);

@@ -1,11 +1,11 @@
-package org.fscl.core.domain.entity;
+package org.fscl.core.domain.resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static tech.units.indriya.unit.Units.METRE;
 
-import org.fscl.core.commons.entity.ResourceId;
+import org.fscl.core.commons.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,15 +15,15 @@ import org.junit.jupiter.api.Test;
 
 import tech.units.indriya.quantity.Quantities;
 
-class FsclEntityUnitTest {
+class ResourceUnitTest {
 
-	class TestFunction extends FsclEntity<TestFunction> {
+	class TestFunction extends Resource<TestFunction> {
 		public TestFunction(ResourceId id, TestFunction parent, String name, String description) {
 			super(id, parent, name, description);
 		}
 
 		public ResourceId getIdentifier() {
-			return super.getEntityId();
+			return super.getResourceId();
 		}
 
 		public TestFunction(ResourceId id) {
@@ -62,7 +62,7 @@ class FsclEntityUnitTest {
 			@Test
 			@DisplayName("THEN it should have the given identifier")
 			void shouldHaveIdentifier() {
-				ResourceId id = func.getEntityId();
+				ResourceId id = func.getResourceId();
 				String EXPECTED_CODE = "=AAA.BAC.023";
 				assertEquals(EXPECTED_CODE, id.getCode());
 				assertEquals(project, id.getProject());

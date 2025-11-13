@@ -1,4 +1,4 @@
-package org.fscl.core.domain.entity;
+package org.fscl.core.domain.resource;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.ListIterator;
 
 import javax.measure.Quantity;
 
-import org.fscl.core.commons.entity.FsclEntityData;
-import org.fscl.core.commons.entity.ResourceId;
+import org.fscl.core.commons.ResourceData;
+import org.fscl.core.commons.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
 
 import lombok.AccessLevel;
@@ -23,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 @Getter
-public abstract class FsclEntity<T extends FsclEntity<T>> extends FsclEntityData {
+public abstract class Resource<T extends Resource<T>> extends ResourceData {
 
 	protected List<T> children;
 
@@ -31,7 +31,7 @@ public abstract class FsclEntity<T extends FsclEntity<T>> extends FsclEntityData
 
 	protected List<Parameter> parameters;
 
-	protected FsclEntity(ResourceId id, T parent, String name, String description) {
+	protected Resource(ResourceId id, T parent, String name, String description) {
 		super(id, name, description);
 		this.parent = parent;
 		this.children = new ArrayList<>();

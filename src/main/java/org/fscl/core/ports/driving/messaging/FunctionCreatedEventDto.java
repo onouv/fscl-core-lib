@@ -1,6 +1,6 @@
 package org.fscl.core.ports.driving.messaging;
 
-import org.fscl.core.commons.entity.EntityEventType;
+import org.fscl.core.commons.ResourceEventType;
 
 import lombok.experimental.SuperBuilder;
 
@@ -8,8 +8,8 @@ import lombok.experimental.SuperBuilder;
 public class FunctionCreatedEventDto extends FunctionEventDto {
 
 	@Override
-	public EntityEventType getEventType() {
-		return EntityEventType.Created;
+	public ResourceEventType getEventType() {
+		return ResourceEventType.Created;
 	}
 
 }

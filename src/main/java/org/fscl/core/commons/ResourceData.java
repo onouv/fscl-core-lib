@@ -1,4 +1,4 @@
-package org.fscl.core.commons.entity;
+package org.fscl.core.commons;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,9 +13,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @EqualsAndHashCode
-public class FsclEntityData {
+public class ResourceData {
 
-	protected ResourceId entityId;
+	protected ResourceId resourceId;
 
 	@Setter
 	String name;

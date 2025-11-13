@@ -1,12 +1,12 @@
-package org.fscl.core.commons.entity;
+package org.fscl.core.commons;
 
-public enum EntityEventType {
+public enum ResourceEventType {
 	Created("Created"),
 	Deleted("Deleted");
 	
 	private final String value;
 	
-	EntityEventType(String value) {
+	ResourceEventType(String value) {
 		this.value = value;
 	}
 }

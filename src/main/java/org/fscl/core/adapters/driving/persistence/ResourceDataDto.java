@@ -1,6 +1,6 @@
-package org.fscl.core.adapters.driving.persistence.entity;
+package org.fscl.core.adapters.driving.persistence;
 
-import org.fscl.core.commons.entity.EntityIdJpaDto;
+import org.fscl.core.commons.ResourceIdDataDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @MappedSuperclass
-public abstract class EntityJpaDto {
+public abstract class ResourceDataDto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "entity_id_gen")
 	@SequenceGenerator(name = "entity_id_gen", sequenceName = "entity_seq")
@@ -30,7 +30,7 @@ public abstract class EntityJpaDto {
 	protected Long id;
 
 	@Embedded
-	protected EntityIdJpaDto entityId;
+	protected ResourceIdDataDto entityId;
 
 	protected String name;
 	protected String description;

@@ -1,4 +1,4 @@
-package org.fscl.core.commons.entity;
+package org.fscl.core.commons;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EntityIdJpaDto {
+public class ResourceIdDataDto {
 
 	@Column(name = "entityid_project")
 	private String project;

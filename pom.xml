@@ -4,9 +4,9 @@
 
 	<groupId>org.fscl</groupId>
 	<artifactId>fscl-core-lib</artifactId>
-	<version>0.2.3-SNAPSHOT</version>
+	<version>0.2.4-SNAPSHOT</version>
 	<name>fscl-core-lib</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Core library for FSCL system</description>
 	<properties>
         <debezium-quarkus-outbox-version>3.2.1.Final</debezium-quarkus-outbox-version>
 		<compiler-plugin.version>3.14.0</compiler-plugin.version>

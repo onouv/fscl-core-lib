@@ -1,11 +1,11 @@
 package org.fscl.core.application.messaging;
 
-import org.fscl.core.commons.entity.EntityType;
-import org.fscl.core.commons.entity.FsclEntityData;
-import org.fscl.core.commons.entity.ResourceId;
-import org.fscl.core.domain.entity.FsclFunction;
+import org.fscl.core.commons.ResourceData;
+import org.fscl.core.commons.ResourceId;
+import org.fscl.core.commons.ResourceType;
 import org.fscl.core.domain.events.FsclDomainEvent;
 import org.fscl.core.domain.events.FunctionCreatedEvent;
+import org.fscl.core.domain.resource.FunctionResource;
 import org.fscl.core.ports.driving.messaging.DtoMappingFailedException;
 import org.fscl.core.ports.driving.messaging.FunctionCreatedEventDto;
 import org.fscl.core.ports.driving.messaging.FunctionEventDto;
@@ -23,15 +23,15 @@ public class FunctionEventMapper {
 	private final ObjectMapper mapper = new ObjectMapper();
 
 	public FunctionEventDto outwards(FsclDomainEvent event) throws MessagingException {
-		if (event.getEntityType() != EntityType.Function) {
+		if (event.getEntityType() != ResourceType.Function) {
 			throw new DtoMappingFailedException("Cannot outwards-map event as function dto.");
 		}
 
 		switch (event.getEventType()) {
 			case Created:
-				FsclEntityData entity = ((FunctionCreatedEvent) event).getEntity();
+				ResourceData entity = ((FunctionCreatedEvent) event).getEntity();
 				return FunctionCreatedEventDto.builder()
-					.entityId(entity.getEntityId())
+					.resourceId(entity.getResourceId())
 					.name(entity.getName())
 					.description(entity.getDescription())
 					.build();
@@ -42,7 +42,7 @@ public class FunctionEventMapper {
 		}
 	}
 
-	protected JsonNode makePayload(ResourceId id, FsclDomainEvent event, FsclFunction entity) {
+	protected JsonNode makePayload(ResourceId id, FsclDomainEvent event, FunctionResource entity) {
 		ObjectNode aggregateId = this.mapper.createObjectNode()
 			.put("project", id.getProject())
 			.put("code", id.getCode());

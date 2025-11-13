@@ -1,6 +1,6 @@
 package org.fscl.core.ports.driving.messaging;
 
-import org.fscl.core.commons.entity.EntityEventType;
+import org.fscl.core.commons.ResourceEventType;
 
 import lombok.experimental.SuperBuilder;
 
@@ -8,9 +8,9 @@ import lombok.experimental.SuperBuilder;
 public class FunctionDeletedEventDto extends FunctionEventDto {
 
 	@Override
-	public EntityEventType getEventType() {
+	public ResourceEventType getEventType() {
 
-		return EntityEventType.Deleted;
+		return ResourceEventType.Deleted;
 	}
 
 }
