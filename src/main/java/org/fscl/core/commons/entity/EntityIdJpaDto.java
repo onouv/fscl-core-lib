@@ -1,4 +1,4 @@
-package org.fscl.core.adapters.driving.persistence.entity;
+package org.fscl.core.commons.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

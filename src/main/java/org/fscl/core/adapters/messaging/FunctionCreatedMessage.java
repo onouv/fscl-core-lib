@@ -5,10 +5,11 @@ import org.fscl.core.commons.entity.ResourceId;
 import org.fscl.core.ports.driving.messaging.FunctionCreatedEventDto;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class FunctionCreatedMessage extends FunctionMessage {
 
-	public FunctionCreatedMessage(ResourceId aggregateId, JsonNode payload) {
+	public FunctionCreatedMessage(String aggregateId, JsonNode payload) {
 		super(aggregateId, payload);
 	}
 
@@ -18,6 +19,14 @@ public class FunctionCreatedMessage extends FunctionMessage {
 	}
 
 	public static FunctionCreatedMessage of(FunctionCreatedEventDto dto) {
-		return null;
+
+		final ResourceId id = dto.getEntityId();
+		final ObjectNode idNode = mapper.createObjectNode().put("project", id.getProject()).put("code", id.getCode());
+
+		final ObjectNode payload = mapper.createObjectNode().set("resourceId", idNode);
+
+		payload.put("name", dto.getName()).put("description", dto.getDescription());
+
+		return new FunctionCreatedMessage(id.toString(), payload);
 	}
 }

@@ -1,7 +1,5 @@
-package org.fscl.core.application;
+package org.fscl.core.commons.entity;
 
-import org.fscl.core.adapters.driving.persistence.entity.EntityIdJpaDto;
-import org.fscl.core.commons.entity.ResourceId;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

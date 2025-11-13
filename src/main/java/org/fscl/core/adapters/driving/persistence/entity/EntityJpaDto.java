@@ -1,5 +1,7 @@
 package org.fscl.core.adapters.driving.persistence.entity;
 
+import org.fscl.core.commons.entity.EntityIdJpaDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
