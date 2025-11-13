@@ -1,4 +1,4 @@
-package org.fscl.core.commons.entity;
+package org.fscl.core.commons;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

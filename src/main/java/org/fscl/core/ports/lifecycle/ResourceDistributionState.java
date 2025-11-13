@@ -1,6 +1,6 @@
 package org.fscl.core.ports.lifecycle;
 
-public enum FsclEntityState {
+public enum ResourceDistributionState {
     CreatedInView,
     PreexistingInView,
     PreexistingInShadowIdentical,

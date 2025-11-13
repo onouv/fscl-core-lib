@@ -1,4 +1,4 @@
-package org.fscl.core.commons.entity;
+package org.fscl.core.commons;
 
 import java.util.regex.Pattern;
 
@@ -12,7 +12,7 @@ public class ResourceIdFormat {
 
 	@Builder
 	private ResourceIdFormat(String project, String prefix, String separator, String postfix)
-			throws EntityCodeFormatException, ProjectCodeException {
+			throws ResourceCodeFormatException, ProjectCodeException {
 
 		Pattern projectPattern = Pattern.compile(PROJECT_REGEXP);
 		if (!projectPattern.matcher(project).matches()) {
@@ -21,21 +21,21 @@ public class ResourceIdFormat {
 
 		Pattern prefixPattern = Pattern.compile(PREFIX_REGEXP);
 		if (!prefixPattern.matcher(prefix).matches()) {
-			throw new EntityCodeFormatException(String.format("prefix %s ill-formed", prefix));
+			throw new ResourceCodeFormatException(String.format("prefix %s ill-formed", prefix));
 		}
 
 		Pattern separatorPattern = Pattern.compile(SEPARATOR_REGEXP);
 		if (!separatorPattern.matcher(separator).matches()) {
-			throw new EntityCodeFormatException(String.format("separator %s ill-formed", separator));
+			throw new ResourceCodeFormatException(String.format("separator %s ill-formed", separator));
 		}
 
 		if (postfix != null) {
 			if (!postfix.equals(")")) {
-				throw new EntityCodeFormatException(String.format("postfix %s ill-formed", postfix));
+				throw new ResourceCodeFormatException(String.format("postfix %s ill-formed", postfix));
 			}
 
 			if (!prefix.startsWith("(")) {
-				throw new EntityCodeFormatException(
+				throw new ResourceCodeFormatException(
 						String.format("postfix %s not permitted without prefix beginning with %s", postfix, prefix));
 			}
 		}
@@ -46,7 +46,7 @@ public class ResourceIdFormat {
 		this.separator = separator;
 	}
 
-	public void validate(ResourceId dto) throws ProjectCodeException, EntityCodeException {
+	public void validate(ResourceId dto) throws ProjectCodeException, ResourceCodeException {
 		validateProject(dto.getProject());
 		validateCode(dto.getCode());
 	}
@@ -58,15 +58,15 @@ public class ResourceIdFormat {
 
 	}
 
-	private void validateCode(String code) throws EntityCodeException {
+	private void validateCode(String code) throws ResourceCodeException {
 		if (!code.startsWith(this.prefix)) {
-			throw new EntityCodeException(code, String.format("code %s missing prefix %s", code, this.prefix));
+			throw new ResourceCodeException(code, String.format("code %s missing prefix %s", code, this.prefix));
 		}
 
 		String stripped;
 		if (this.postfix != null) {
 			if (!code.endsWith(this.postfix)) {
-				throw new EntityCodeException(code, String.format("code %s missing postfix %s", code, this.postfix));
+				throw new ResourceCodeException(code, String.format("code %s missing postfix %s", code, this.postfix));
 			}
 			stripped = code.substring(this.prefix.length(), code.length() - this.postfix.length());
 		} else {
@@ -77,7 +77,7 @@ public class ResourceIdFormat {
 		String[] segments = stripped.split(this.separator);
 		for (String seg : segments) {
 			if (!p.matcher(seg).matches()) {
-				throw new EntityCodeException(code, String.format("code segment ill-formed (%s)", seg));
+				throw new ResourceCodeException(code, String.format("code segment ill-formed (%s)", seg));
 			}
 		}
 	}

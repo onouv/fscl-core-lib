@@ -1,7 +1,7 @@
 package org.fscl.core.domain.events;
 
-import org.fscl.core.commons.entity.EntityEventType;
-import org.fscl.core.commons.entity.EntityType;
+import org.fscl.core.commons.ResourceEventType;
+import org.fscl.core.commons.ResourceType;
 
 import lombok.Getter;
 
@@ -17,7 +17,7 @@ public abstract class FsclDomainEvent {
 		this.viewName = viewName;
 	}
 
-	public abstract EntityEventType getEventType();
+	public abstract ResourceEventType getEventType();
 
-	public abstract EntityType getEntityType();
+	public abstract ResourceType getEntityType();
 }

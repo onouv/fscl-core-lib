@@ -1,12 +1,13 @@
-package org.fscl.core.domain.entity;
+package org.fscl.core.domain.resource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static tech.units.indriya.unit.Units.METRE;
 
-import org.fscl.core.commons.entity.ResourceId;
+import org.fscl.core.commons.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
+import org.fscl.core.domain.resource.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,9 +16,9 @@ import org.junit.jupiter.api.Test;
 
 import tech.units.indriya.quantity.Quantities;
 
-class FsclEntityUnitTest {
+class ResourceUnitTest {
 
-	class TestFunction extends FsclEntity<TestFunction> {
+	class TestFunction extends Resource<TestFunction> {
 		public TestFunction(ResourceId id, TestFunction parent, String name, String description) {
 			super(id, parent, name, description);
 		}
