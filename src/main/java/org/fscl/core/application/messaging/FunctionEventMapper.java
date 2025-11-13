@@ -1,8 +1,8 @@
 package org.fscl.core.application.messaging;
 
-import org.fscl.core.commons.ResourceType;
 import org.fscl.core.commons.ResourceData;
 import org.fscl.core.commons.ResourceId;
+import org.fscl.core.commons.ResourceType;
 import org.fscl.core.domain.events.FsclDomainEvent;
 import org.fscl.core.domain.events.FunctionCreatedEvent;
 import org.fscl.core.domain.resource.FunctionResource;
@@ -31,7 +31,7 @@ public class FunctionEventMapper {
 			case Created:
 				ResourceData entity = ((FunctionCreatedEvent) event).getEntity();
 				return FunctionCreatedEventDto.builder()
-					.entityId(entity.getEntityId())
+					.resourceId(entity.getResourceId())
 					.name(entity.getName())
 					.description(entity.getDescription())
 					.build();

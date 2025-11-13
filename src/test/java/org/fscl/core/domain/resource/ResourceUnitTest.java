@@ -7,7 +7,6 @@ import static tech.units.indriya.unit.Units.METRE;
 
 import org.fscl.core.commons.ResourceId;
 import org.fscl.core.domain.parameter.Parameter;
-import org.fscl.core.domain.resource.Resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +23,7 @@ class ResourceUnitTest {
 		}
 
 		public ResourceId getIdentifier() {
-			return super.getEntityId();
+			return super.getResourceId();
 		}
 
 		public TestFunction(ResourceId id) {
@@ -63,7 +62,7 @@ class ResourceUnitTest {
 			@Test
 			@DisplayName("THEN it should have the given identifier")
 			void shouldHaveIdentifier() {
-				ResourceId id = func.getEntityId();
+				ResourceId id = func.getResourceId();
 				String EXPECTED_CODE = "=AAA.BAC.023";
 				assertEquals(EXPECTED_CODE, id.getCode());
 				assertEquals(project, id.getProject());

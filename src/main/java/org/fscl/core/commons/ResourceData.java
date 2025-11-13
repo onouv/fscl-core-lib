@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 public class ResourceData {
 
-	protected ResourceId entityId;
+	protected ResourceId resourceId;
 
 	@Setter
 	String name;

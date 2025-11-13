@@ -20,7 +20,7 @@ public class FunctionCreatedMessage extends FunctionMessage {
 
 	public static FunctionCreatedMessage of(FunctionCreatedEventDto dto) {
 
-		final ResourceId id = dto.getEntityId();
+		final ResourceId id = dto.getResourceId();
 		final ObjectNode idNode = mapper.createObjectNode().put("project", id.getProject()).put("code", id.getCode());
 
 		final ObjectNode payload = mapper.createObjectNode().set("resourceId", idNode);
