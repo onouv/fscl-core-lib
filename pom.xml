@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.fscl</groupId>
-	<artifactId>fscl-core-lib</artifactId>
+	<artifactId>core-lib</artifactId>
 	<version>0.2.4-SNAPSHOT</version>
 	<name>fscl-core-lib</name>
 	<description>Core library for FSCL system</description>
@@ -114,11 +114,11 @@
 			<artifactId>mockito-core</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+		<!--<dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
-        </dependency>
+        </dependency>-->
 	</dependencies>
 	<build>
         <plugins>
@@ -144,6 +144,18 @@
 					<compilerArgs>
 						<arg>-parameters</arg>
 					</compilerArgs>
+					<annotationProcessorPaths>
+                        <!--<path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
+                        </path>-->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok-version}</version>
+                        </path>  
+					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -1,13 +1,23 @@
 package org.fscl.core.commons;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import jakarta.enterprise.context.ApplicationScoped;
 
-@Mapper
-public interface ResourceIdDataMapper {
-	public static final ResourceIdDataMapper INSTANCE = Mappers.getMapper(ResourceIdDataMapper.class);
+@ApplicationScoped
+public class ResourceIdDataMapper {
 
-	ResourceIdDataDto outwards(ResourceId id);
+	public ResourceIdDataDto outwards(ResourceId id) {
+		if (id == null) {
+			throw new IllegalArgumentException("ResourceId provided must not be null");
+		}
 
-	ResourceId inwards(ResourceIdDataDto dto);
+		return new ResourceIdDataDto(id.getProject(), id.getCode());
+	}
+
+	public ResourceId inwards(ResourceIdDataDto dto) {
+		if (dto == null) {
+			throw new IllegalArgumentException("ResourceIdDataDto provided must not be null");
+		}
+
+		return new ResourceId(dto.getProject(), dto.getCode());
+	}
 }
