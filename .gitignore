@@ -33,6 +33,10 @@ build/
 .vscode/
 
 mvn-settings.xml
+settings.xml
 
 ### Obsidian ###
-doc/fscl-core-lib/.obsidian/plugins/
+doc/**/.obsidian/
+
+### Quarkus meta
+.quarkus/
